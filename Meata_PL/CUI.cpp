@@ -1,0 +1,144 @@
+#include "Global.h"
+
+#include "CUI.h"
+#include "CKeyMgr.h"
+#include "SelectGDI.h"
+
+
+CUI::CUI(bool _bCamAff) :
+	m_pParentUI(nullptr),
+	m_bCamAffect(_bCamAff),
+	m_bMouseOn(false)
+{
+}
+
+CUI::CUI(const CUI& _origin) :
+	CObject(_origin),
+	m_pParentUI(nullptr),
+	m_bCamAffect(_origin.m_bCamAffect),
+	m_bMouseOn(false),
+	m_bLbtnDown(false)
+{
+	for (size_t i = 0; i < _origin.m_vecChildUI.size(); i++)
+	{
+		AddChild(_origin.m_vecChildUI[i]->O_Clone());
+	}
+
+}
+
+CUI::~CUI()
+{
+	Safe_Delete_Vec(m_vecChildUI);
+}
+
+void CUI::update()
+{
+	update_child();
+}
+
+void CUI::finalupdate()
+{
+	CObject::finalupdate();
+
+	//UI의 최종 좌표 계산
+
+	m_vFinalPos = GetPos();
+
+	if (GetParent())
+	{
+		Vec2 vParentPos = GetParent()->GetFinalPos();
+		m_vFinalPos += vParentPos;
+	}
+
+	//UI Mouse 체크
+	MouseOnCheck();
+
+	finalupdate_child();
+}
+
+void CUI::render(HDC _dc)
+{
+	Vec2 vPos = GetFinalPos();
+	Vec2 vScale = GetScale();
+
+	if (m_bCamAffect)
+	{
+		vPos = CCamera::GetInst()->GetRenderPos(vPos);
+	}
+	if (m_bLbtnDown)
+	{
+		SelectGDI select(_dc, PEN_TYPE::GREEN);
+		Rectangle(_dc, vPos.x, vPos.y, vPos.x + vScale.x, vPos.y + vScale.y);
+
+	}
+	else
+	{
+		Rectangle(_dc, vPos.x, vPos.y, vPos.x + vScale.x, vPos.y + vScale.y);
+
+	}
+
+
+	render_child(_dc);
+}
+
+void CUI::MouseOnCheck()
+{
+	Vec2 vMousePos = MOUSE_POS;
+	Vec2 vScale = GetScale();
+
+
+	if (m_bCamAffect)
+	{
+		vMousePos = CCamera::GetInst()->GetRealPos(vMousePos);
+	}
+
+	if (m_vFinalPos.x <= vMousePos.x && vMousePos.x <= m_vFinalPos.x + vScale.x
+		&& m_vFinalPos.y <= vMousePos.y && vMousePos.y <= m_vFinalPos.y + vScale.y)
+	{
+		m_bMouseOn = true;
+	}
+	else m_bMouseOn = false;
+
+
+}
+
+void CUI::MouseOn()
+{
+}
+
+void CUI::MouseLbtnDown()
+{
+}
+
+void CUI::MouseLbtnUp()
+{
+}
+
+void CUI::MouseLbtnClicked()
+{
+}
+
+void CUI::update_child()
+{
+	for (size_t i = 0; i < m_vecChildUI.size(); ++i)
+	{
+		m_vecChildUI[i]->update();
+	}
+}
+
+void CUI::finalupdate_child()
+{
+	for (size_t i = 0; i < m_vecChildUI.size(); ++i)
+	{
+		m_vecChildUI[i]->finalupdate();
+	}
+}
+
+void CUI::render_child(HDC _dc)
+{
+	for (size_t i = 0; i < m_vecChildUI.size(); ++i)
+	{
+		m_vecChildUI[i]->render(_dc);
+	}
+}
+
