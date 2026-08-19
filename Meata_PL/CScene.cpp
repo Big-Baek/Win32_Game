@@ -12,8 +12,7 @@ CScene::CScene() :
 	m_iTileX(0),
 	m_iTileY(0),
 	m_pPlayer(nullptr)
-{
-}
+{}
 
 CScene::~CScene()
 {
@@ -32,7 +31,7 @@ void CScene::Start()
 	{
 		for (size_t j = 0; j < m_arrObj[i].size(); j++)
 		{
-				m_arrObj[i][j]->Start();
+			m_arrObj[i][j]->Start();
 		}
 	}
 }
@@ -51,13 +50,13 @@ void CScene::update()
 	}
 }
 //충돌체는 플레이어 따라감
-void CScene::finalupdate()
+void CScene::Physics_update()
 {
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
 		for (size_t j = 0; j < m_arrObj[i].size(); j++)
 		{
-			m_arrObj[i][j]->finalupdate();
+			m_arrObj[i][j]->Physics_update();
 		}
 	}
 }
@@ -90,6 +89,13 @@ void CScene::render(HDC _dc)
 	}
 }
 
+void CScene::render_background(HDC _dc)
+{
+
+
+
+}
+
 void CScene::render_tile(HDC _dc)
 {
 	const vector<CObject*>& vecTile = GetGroupObject(GROUP_TYPE::TILE);
@@ -104,15 +110,12 @@ void CScene::render_tile(HDC _dc)
 	int iLTCol = (int)vLeftTop.x / iTileSize;
 	int iLTRow = (int)vLeftTop.y / iTileSize;
 
-
-
-
 	int iClientWidt = (int)vResolution.x / iTileSize;
 	int iClientHeight = (int)vResolution.y / iTileSize;
 
-	for (int iCurRow = iLTRow; iCurRow < (iLTRow + iClientHeight)+1; iCurRow++)
+	for (int iCurRow = iLTRow; iCurRow < (iLTRow + iClientHeight) + 1; iCurRow++)
 	{
-		for (int iCurCol = iLTCol; iCurCol < (iLTCol + iClientWidt)+1; iCurCol++)
+		for (int iCurCol = iLTCol; iCurCol < (iLTCol + iClientWidt) + 1; iCurCol++)
 		{
 			if (iCurCol < 0 || m_iTileX <= iCurCol
 				|| iCurRow < 0 || m_iTileY <= iCurRow)
@@ -128,6 +131,8 @@ void CScene::render_tile(HDC _dc)
 
 	}
 }
+
+
 
 void CScene::DeleteGroup(GROUP_TYPE _eTarget)
 {

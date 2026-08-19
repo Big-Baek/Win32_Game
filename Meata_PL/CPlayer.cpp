@@ -18,26 +18,25 @@ CPlayer::CPlayer()
 	m_ePrevState(PLAYER_STATE::WALK)
 {
 	//texture 로딩
-	//m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\BPlayer.bmp");
-
 
 	CreateCollider();
+	CreateRigidBody();
+	CreateAnimator();
+
 	GetCollider()->SetOffSetPos(Vec2(0.f, 5.f));
 	GetCollider()->SetScale(Vec2(40.f, 60.f));
 
-	CreateRigidBody();
 
-	CTexture* m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\Jelda1.bmp");
+	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"Texture\\Neo_Cold.png");
 
-	CreateAnimator();
 
+	//GetAnimator()->CreateAnimation()
 	//GetAnimator()->LoadAnimation(L"animation\\player_idle_left.anim");
 	//GetAnimator()->LoadAnimation(L"animation\\player_idle_right.anim");
 	//GetAnimator()->LoadAnimation(L"animation\\player_walk_left.anim");
 	//GetAnimator()->LoadAnimation(L"animation\\player_walk_right.anim");
 
-
-	//GetAnimator()->CreateAnimation(L"IDLE_LEFT", m_pTex, Vec2(0.f, 65.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 3);
+	GetAnimator()->CreateAnimation(L"Cold", m_pTex, Vec2(0.f, 0.f), Vec2(35.f, 35.f), 35.f, 0.1f, 16);
 	//GetAnimator()->CreateAnimation(L"IDLE_RIGHT", m_pTex, Vec2(0.f, 195.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 3);
 	//GetAnimator()->CreateAnimation(L"WALK_LEFT", m_pTex, Vec2(0.f, 325.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 10);
 	//GetAnimator()->CreateAnimation(L"WALK_RIGHT", m_pTex, Vec2(0.f, 455.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 10);
@@ -48,26 +47,18 @@ CPlayer::CPlayer()
 	//GetAnimator()->FindAnimation(L"WALK_LEFT")->Save(L"animation\\player_walk_left.anim");
 	//GetAnimator()->FindAnimation(L"WALK_RIGHT")->Save(L"animation\\player_walk_right.anim");
 
-
-
-
-
 	CreateGravity();
-
-	//CAnimation* pAnim = GetAnimator()->FindAnimation(L"WALK_DOWN");
-	//pAnim->GetFrame(0).vOffset = Vec2(0.f ,- 20.f); //오프셋 적용 -> 0프레임만 Y축 -20만큼 적용
+	GetAnimator()->Play(L"Cold", true);
 }
 
 CPlayer::~CPlayer()
-{
-}
+{}
 
 void CPlayer::update()
 {
 	update_move();
 	update_state();
-	update_animation();
-
+	//update_animation();
 
 
 	if (KEY_TAP(KEY::ENTER))
@@ -79,6 +70,17 @@ void CPlayer::update()
 
 	m_ePrevState = m_eCurState;
 	m_iPrevDir = m_iDir;
+}
+
+void CPlayer::render(HDC _dc)
+{
+	CObject::render(_dc);
+
+	//if (m_pTex && m_pTex->m_pImg)
+	//{
+	//	Gdiplus::Graphics g(_dc);
+	//	g.DrawImage(m_pTex->m_pImg, m_vPos.x, m_vPos.y);
+	//}
 }
 
 void CPlayer::CreateMissile(int n)
@@ -97,7 +99,7 @@ void CPlayer::CreateMissile(int n)
 	}
 }
 
-void CPlayer::update_state()
+void CPlayer::update_state()//이후 컨트롤러로 이전
 {
 	if (KEY_HOLD(KEY::A))
 	{
@@ -210,55 +212,24 @@ void CPlayer::OnCollisionEnter(CCollider* _pOther)
 	}
 }
 
-void CPlayer::render(HDC _dc)
-{
+//void CPlayer::Player_render(HDC _dc)
+//{
+//	CObject::render(_dc);
+//
+//	if (m_pTex && m_pTex->m_pImg)
+//	{
+//		Gdiplus::Graphics g(_dc);
+//		g.DrawImage(m_pTex->m_pImg, m_vPos.x, m_vPos.y);
+//	}
+//}
 
-	//컴포넌트(충돌체, etc 등등)
-	ComponentRender(_dc);
-	//CTexture* pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"texture\\BPlayer.bmp");
-
-	//Vec2 vPos = GetPos();
-	//vPos = CCamera::GetInst()->GetRealPOs(vPos);
-
-	//float width = (float)pTex->Width();
-	//float height = (float)pTex->Height();
-
-	//BLENDFUNCTION bf = {};
-
-	//bf.BlendOp = AC_SRC_OVER;
-	//bf.BlendFlags = 0;
-	//bf.AlphaFormat = AC_SRC_ALPHA;
-	//bf.SourceConstantAlpha = 127;//투명도
-
-	//AlphaBlend(_dc,
-	//	int(vPos.x - width / 2.f),
-	//	int(vPos.y - height / 2.f),
-	//	int(width), int(height),
-	//	pTex->GetDC(),
-	//	0, 0, int(width), int(height),
-	//	bf);
-}
-
-
-//기존 렌더 함수
-// 
-//좌상단의 경우 좌표가 음수가 될수 있어 int로 캐스팅
-//int iWidth = (int)m_pTex->Width();
-//int iHeight = (int)m_pTex->Height();
-
-//Vec2 vPos = GetPos();
-
-//BitBlt(_dc,
-//	int(vPos.x - (float)(iWidth / 2)),
-//	int(vPos.y - (float)(iHeight / 2)),
-//	iWidth, iHeight,
-//	m_pTex->GetDC(),
-//	0, 0, SRCCOPY);
-
-//TransparentBlt(_dc,
-//	int(vPos.x - (float)(iWidth / 2)),
-//	int(vPos.y - (float)(iHeight / 2)),
-//	iWidth, iHeight,
-//	m_pTex->GetDC(),
-//	0, 0, iWidth, iHeight,
-//	RGB(255, 0, 255));
+//void CPlayer::p_render(HDC _dc)
+//{
+//
+//		if (m_pTex && m_pTex->m_pImg)
+//		{
+//			Graphics g(_dc);
+//			g.DrawImage(m_pTex->m_pImg, m_vPos.x, m_vPos.y);
+//		}
+//	
+//}

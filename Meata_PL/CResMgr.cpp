@@ -4,6 +4,8 @@
 #include "CTexture.h"
 #include "CRes.h"
 
+#include <iostream>
+
 //절대경로, 상대경로 인자
 CTexture* CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRelativePath)
 {
@@ -17,7 +19,8 @@ CTexture* CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRelati
 	strFilePath += _strRelativePath;
 
 	pTex = new CTexture;
-	pTex->Load(strFilePath);
+	//pTex->Load(strFilePath);
+	pTex->PNG_Load(strFilePath);
 	pTex->SetKey(_strKey);
 	pTex->SetRelativePath(_strRelativePath);
 

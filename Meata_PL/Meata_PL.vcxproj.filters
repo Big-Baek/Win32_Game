@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -37,9 +29,6 @@
     <Filter Include="Engine\7. Component">
       <UniqueIdentifier>{aa4ebfa5-1887-45af-9f1c-535fc9b1c979}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\8. Module">
-      <UniqueIdentifier>{f0e0f2fd-4551-4e79-be6b-19a62c533365}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\9. Pattern">
       <UniqueIdentifier>{44cfb47f-28a2-4fc8-ba90-b4d71cc2d235}</UniqueIdentifier>
     </Filter>
@@ -55,20 +44,50 @@
     <Filter Include="Engine\4. Object\UI">
       <UniqueIdentifier>{64563912-2f92-43a1-a415-294b9cd7c661}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Default">
+      <UniqueIdentifier>{d444b45a-7d73-47b3-92f9-5f537884ad79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\Camera">
+      <UniqueIdentifier>{0a329a41-4e01-434d-96eb-812128334ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\7. Component\Controller">
+      <UniqueIdentifier>{df5684ec-7c1d-41f4-8537-4f4602aa833e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\4. Object\Actor">
+      <UniqueIdentifier>{bd48e6b0-85b8-4a16-a191-01c389b54ad5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\4. Object\Base">
+      <UniqueIdentifier>{fcb343b9-b500-4b86-8341-5814a1df9029}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\CollisionMgr">
+      <UniqueIdentifier>{1488670f-d5f4-4a83-aea2-8937c8907b9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\EventMgr">
+      <UniqueIdentifier>{bb915bf3-89a6-4f2c-87f1-0d7692ac4fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\KeyMgr">
+      <UniqueIdentifier>{c2b3a8f5-2e6c-4b72-af5c-3ad8559cab7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\PathMgr">
+      <UniqueIdentifier>{e65acd45-1840-4a34-a1bc-c4b11cc41591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\ResMgr">
+      <UniqueIdentifier>{97ac01b7-7376-48b7-b4bb-d8be2bb4b942}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\SceneMgr">
+      <UniqueIdentifier>{8a641533-3d79-4d80-a2a2-f138b0673ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\TimeMgr">
+      <UniqueIdentifier>{f6c6212d-a9ef-4a25-94cc-72fd618fca78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\UIMgr">
+      <UniqueIdentifier>{f3aab773-e07d-4dad-91a2-979c062fa002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\8. Tool">
+      <UniqueIdentifier>{f0e0f2fd-4551-4e79-be6b-19a62c533365}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Metal_PL.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="define.h">
       <Filter>Engine\1. Header</Filter>
     </ClInclude>
@@ -83,51 +102,6 @@
     </ClInclude>
     <ClInclude Include="CCore.h">
       <Filter>Engine\2. Core</Filter>
-    </ClInclude>
-    <ClInclude Include="CCamera.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CCollisionMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CEventMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CKeyMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CPathMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CResMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CSceneMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CTimeMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CUIMgr.h">
-      <Filter>Engine\3. Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="CGround.h">
-      <Filter>Engine\4. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CMissile.h">
-      <Filter>Engine\4. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>Engine\4. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CObject.h">
-      <Filter>Engine\4. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>Engine\4. Object</Filter>
-    </ClInclude>
-    <ClInclude Include="CTile.h">
-      <Filter>Engine\4. Object</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>Engine\5. Scene</Filter>
@@ -148,7 +122,7 @@
       <Filter>Engine\6. Resource</Filter>
     </ClInclude>
     <ClInclude Include="SelectGDI.h">
-      <Filter>Engine\8. Module</Filter>
+      <Filter>Engine\8. Tool</Filter>
     </ClInclude>
     <ClInclude Include="CMonFactory.h">
       <Filter>Engine\9. Pattern</Filter>
@@ -189,58 +163,76 @@
     <ClInclude Include="CPanelUI.h">
       <Filter>Engine\4. Object\UI</Filter>
     </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Metal_PL.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Default</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Engine\3. Manager\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CController.h">
+      <Filter>Engine\7. Component\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="CMissile.h">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObject.h">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>Engine\4. Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CGround.h">
+      <Filter>Engine\4. Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionMgr.h">
+      <Filter>Engine\3. Manager\CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CEventMgr.h">
+      <Filter>Engine\3. Manager\EventMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>Engine\3. Manager\KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CPathMgr.h">
+      <Filter>Engine\3. Manager\PathMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CResMgr.h">
+      <Filter>Engine\3. Manager\ResMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>Engine\3. Manager\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeMgr.h">
+      <Filter>Engine\3. Manager\TimeMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIMgr.h">
+      <Filter>Engine\3. Manager\UIMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimTool.h">
+      <Filter>Engine\8. Tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Metal_PL.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="func.cpp">
       <Filter>Engine\1. Header</Filter>
     </ClCompile>
     <ClCompile Include="CCore.cpp">
       <Filter>Engine\2. Core</Filter>
-    </ClCompile>
-    <ClCompile Include="CCamera.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CCollisionMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CEventMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CKeyMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CPathMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CResMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CTimeMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CUIMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CGround.cpp">
-      <Filter>Engine\4. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CMissile.cpp">
-      <Filter>Engine\4. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>Engine\4. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CObject.cpp">
-      <Filter>Engine\4. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>Engine\4. Object</Filter>
-    </ClCompile>
-    <ClCompile Include="CTile.cpp">
-      <Filter>Engine\4. Object</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>Engine\5. Scene</Filter>
@@ -258,13 +250,10 @@
       <Filter>Engine\6. Resource</Filter>
     </ClCompile>
     <ClCompile Include="SelectGDI.cpp">
-      <Filter>Engine\8. Module</Filter>
+      <Filter>Engine\8. Tool</Filter>
     </ClCompile>
     <ClCompile Include="CMonFactory.cpp">
       <Filter>Engine\9. Pattern</Filter>
-    </ClCompile>
-    <ClCompile Include="CSceneMgr.cpp">
-      <Filter>Engine\3. Manager</Filter>
     </ClCompile>
     <ClCompile Include="CSound.cpp">
       <Filter>Engine\6. Resource</Filter>
@@ -304,6 +293,58 @@
     </ClCompile>
     <ClCompile Include="CPanelUI.cpp">
       <Filter>Engine\4. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Metal_PL.cpp" />
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Engine\3. Manager\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CController.cpp">
+      <Filter>Engine\7. Component\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="CMissile.cpp">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObject.cpp">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>Engine\4. Object\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CGround.cpp">
+      <Filter>Engine\4. Object\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionMgr.cpp">
+      <Filter>Engine\3. Manager\CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventMgr.cpp">
+      <Filter>Engine\3. Manager\EventMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>Engine\3. Manager\KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathMgr.cpp">
+      <Filter>Engine\3. Manager\PathMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CResMgr.cpp">
+      <Filter>Engine\3. Manager\ResMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>Engine\3. Manager\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeMgr.cpp">
+      <Filter>Engine\3. Manager\TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIMgr.cpp">
+      <Filter>Engine\3. Manager\UIMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimTool.cpp">
+      <Filter>Engine\8. Tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

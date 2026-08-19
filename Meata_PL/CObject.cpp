@@ -1,4 +1,5 @@
 #include "CObject.h"
+#include "CTexture.h"
 #include "CKeyMgr.h"
 #include "CTimeMgr.h"
 #include "CCollider.h"
@@ -7,6 +8,7 @@
 #include "CGravity.h"
 
 CObject::CObject() :
+	m_pTex(nullptr),
 	m_vPos{},
 	m_vScale{},
 	m_pCollider(nullptr),
@@ -18,6 +20,7 @@ CObject::CObject() :
 }
 
 CObject::CObject(const CObject& _origin) :
+	m_pTex(_origin.m_pTex),
 	m_strName(_origin.m_strName),
 	m_vPos(_origin.m_vPos),
 	m_vScale(_origin.m_vScale),
@@ -59,9 +62,8 @@ CObject::~CObject()
 	if (m_pGravity != nullptr) delete m_pGravity;
 }
 
-void CObject::finalupdate()
+void CObject::Physics_update()
 {
-
 	if (m_pAnimator) m_pAnimator->finalupdate();
 
 	if (m_pGravity) m_pGravity->finalupdate();
@@ -88,11 +90,11 @@ void CObject::render(HDC _dc)
 
 void CObject::ComponentRender(HDC _dc)
 {
+	this;
 	if (m_pAnimator != nullptr)
 	{
 		m_pAnimator->render(_dc);
 	}
-
 	if (m_pCollider != nullptr)
 	{
 		m_pCollider->render(_dc);
@@ -109,7 +111,6 @@ void CObject::CreateAnimator()
 {
 	m_pAnimator = new CAnimator;
 	m_pAnimator->m_pOwner = this;
-
 }
 
 void CObject::CreateRigidBody()

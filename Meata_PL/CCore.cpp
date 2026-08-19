@@ -81,17 +81,11 @@ void CCore::progress()
 	CKeyMgr::GetInst()->update();
 	CCamera::GetInst()->update();
 
-	//Scene Update
 	CSceneMgr::GetInst()->update();
 	CCollisionMgr::GetInst()->update();
-
-	//UI 이벤트 체크
 	CUIMgr::GetInst()->update();
 
-	//Render
-	//화면 Clear
-
-	Clear();
+	Clear(); //그리기전에 도화지 초기화
 
 	CSceneMgr::GetInst()->render(m_pMemTex->GetDC());
 	CCamera::GetInst()->render(m_pMemTex->GetDC());
@@ -104,15 +98,15 @@ void CCore::progress()
 		0, 0,               // 원본 좌표 (메모리 비트맵의 0,0)
 		SRCCOPY             // 복사 방식 = 그대로 복사
 	);
-	CTimeMgr::GetInst()->render();
 
+	CTimeMgr::GetInst()->render();
 	//이벤트 지연처리
 	CEventMgr::GetInst()->update();
 }
 
 void CCore::Clear()
 {
-	//SelectGDI gdi(m_pMemTex->GetDC(), BRUSH_TYPE::BLACK);
+	//SelectGDI gdi(m_pMemTex->GetDC(), BRUSH_TYPE::BLACK); //배경색 결정
 	Rectangle(m_pMemTex->GetDC(), -1, -1, m_ptResolution.x + 1, m_ptResolution.y + 1);
 }
 

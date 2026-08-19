@@ -28,7 +28,6 @@ public:
 	void progress();
 
 private:
-	void update();
 	void Clear();
 	void CreateBrushPen();
 

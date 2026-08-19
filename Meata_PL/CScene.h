@@ -28,9 +28,10 @@ public:
 
 	virtual void Start();
 	virtual void update();
-	virtual void finalupdate();
-	virtual void render(HDC _dc);
+	virtual void Physics_update();
 
+	virtual void render(HDC _dc);
+	void render_background(HDC _dc);
 	void render_tile(HDC _dc);
 
 	virtual void Enter() = 0;//해당 Scene 진입시 호출

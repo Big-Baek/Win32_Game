@@ -226,7 +226,7 @@ void ChangeScene(DWORD_PTR, DWORD_PTR)
 //
 //			CScene* pCurScene = CSceneMgr::GetInst()->GetCurScene();
 //
-//
+//			
 //			CScene_Tool* pToolScene = dynamic_cast<CScene_Tool*>(pCurScene);
 //			assert(pToolScene);
 //

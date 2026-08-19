@@ -12,16 +12,13 @@ CAnimation::CAnimation() :
 	m_pAnimator(nullptr),
 	m_pTex(nullptr),
 	m_iCurFrm(0)
-{
-}
+{}
 
 CAnimation::~CAnimation()
-{
-}
+{}
 
 void CAnimation::update()
 {
-	if (m_bFinish) return;
 
 	m_fAccTime += fDT;
 
@@ -31,8 +28,7 @@ void CAnimation::update()
 
 		if (m_vecFrm.size() <= m_iCurFrm)
 		{
-			m_iCurFrm = -1;
-			m_bFinish = true;
+			m_iCurFrm = 0;
 			m_fAccTime = 0.f;
 			return;
 		}
@@ -45,31 +41,62 @@ void CAnimation::update()
 
 void CAnimation::render(HDC _dc)
 {
-	if (m_bFinish) return;
 
 	CObject* pObj = m_pAnimator->Getobj();
 	Vec2 vPos = pObj->GetPos();
-	vPos += m_vecFrm[m_iCurFrm].vOffset; //object position에 offset만큼 추가 이동위치
+	vPos += m_vecFrm[m_iCurFrm].vOffset;
 
-	//렌더링 좌표로 변환
+	// 카메라 변환
 	vPos = CCamera::GetInst()->GetRenderPos(vPos);
 
-	TransparentBlt(_dc,
-		(int)(vPos.x - m_vecFrm[m_iCurFrm].vSlice.x / 2.f),
-		(int)(vPos.y - m_vecFrm[m_iCurFrm].vSlice.y / 2.f),
-		(int)m_vecFrm[m_iCurFrm].vSlice.x,
-		(int)m_vecFrm[m_iCurFrm].vSlice.y,
-		m_pTex->GetDC(),
+	Graphics g(_dc);
+
+	// 스프라이트시트에서 잘라낼 영역
+	Rect src(
 		(int)m_vecFrm[m_iCurFrm].vLt.x,
 		(int)m_vecFrm[m_iCurFrm].vLt.y,
 		(int)m_vecFrm[m_iCurFrm].vSlice.x,
-		(int)m_vecFrm[m_iCurFrm].vSlice.y,
-		RGB(255, 0, 255));
+		(int)m_vecFrm[m_iCurFrm].vSlice.y
+	);
 
+	// 화면에 그릴 영역
+	Rect dst(
+		(int)(vPos.x - m_vecFrm[m_iCurFrm].vSlice.x / 2.f),
+		(int)(vPos.y - m_vecFrm[m_iCurFrm].vSlice.y / 2.f),
+		(int)m_vecFrm[m_iCurFrm].vSlice.x,
+		(int)m_vecFrm[m_iCurFrm].vSlice.y
+	);
 
+	g.DrawImage(m_pTex->GetImg(), dst, src.X, src.Y, src.Width, src.Height, UnitPixel);
 }
 
-void CAnimation::Create(CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, Vec2 _vStep, float _fDuration, UINT _iFrameCount)
+void CAnimation::RenderOnTool(HDC _dc, int x, int y)
+{
+	Graphics g(_dc);
+
+	tAnimFrm& frm = m_vecFrm[m_iCurFrm];
+
+	// src: 스프라이트 시트에서 잘라낼 영역
+	Rect src(
+		(int)frm.vLt.x,
+		(int)frm.vLt.y,
+		(int)frm.vSlice.x,
+		(int)frm.vSlice.y
+	);
+
+	// dst: Picture Control 안에 그릴 위치
+	Rect dst(
+		x,
+		y,
+		(int)frm.vSlice.x,
+		(int)frm.vSlice.y
+	);
+
+	g.DrawImage(m_pTex->GetImg(), dst, src.X, src.Y, src.Width, src.Height, UnitPixel);
+}
+
+
+void CAnimation::Create(CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, float _vStep, float _fDuration, UINT _iFrameCount)
 {
 	m_pTex = _pTex;
 
@@ -78,7 +105,7 @@ void CAnimation::Create(CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, Vec2 _vSte
 	{
 		frm.fDuration = _fDuration;
 		frm.vSlice = _vSliceSize;
-		frm.vLt = _vLT + _vStep * (float)i;
+		frm.vLt.x = _vLT.x + (_vStep * (float)i);
 
 		m_vecFrm.push_back(frm);
 	}
@@ -173,7 +200,7 @@ void CAnimation::Load(const wstring& _strRelativePath)
 	FScanf(szBuff, pFile);
 	str = szBuff;
 
-	wstring strTexKey =  wstring(str.begin(), str.end());
+	wstring strTexKey = wstring(str.begin(), str.end());
 
 	FScanf(szBuff, pFile);
 	FScanf(szBuff, pFile);
@@ -202,37 +229,11 @@ void CAnimation::Load(const wstring& _strRelativePath)
 			{
 				//fscanf_s(pFile,"%d", )
 			}
-			else if(!strcmp("[Left Top]", szBuff))
+			else if (!strcmp("[Left Top]", szBuff))
 			{
 
 			}
 		}
 	}
-
-
-	//LoadWString(m_strName, pFile);
-
-	////텍스쳐
-	//wstring strTexKey, strTexPath;
-	//LoadWString(strTexKey, pFile);
-	//LoadWString(strTexPath, pFile);
-	//m_pTex = CResMgr::GetInst()->LoadTexture(strTexKey, strTexPath);
-
-
-	////프레임 갯수
-	//size_t iFrameCount = 0;
-	//fread(&iFrameCount, sizeof(size_t), 1, pFile);
-
-	////모든 프레임 정보
-	//m_vecFrm.resize(iFrameCount);
-	//fread(m_vecFrm.data(), sizeof(tAnimFrm), iFrameCount, pFile);
-
-
-
-
-
-
-
-
 	fclose(pFile);
 }

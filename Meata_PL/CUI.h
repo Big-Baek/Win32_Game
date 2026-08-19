@@ -28,7 +28,7 @@ public:
 
 public:
 	void update();
-	void finalupdate() override; //자기 위치를 결정
+	void finalupdate(); //자기 위치를 결정
 	void render(HDC _dc);
 
 	virtual void MouseOn(); //마우스 호버링

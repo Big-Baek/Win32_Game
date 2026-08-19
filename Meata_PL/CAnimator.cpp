@@ -1,12 +1,22 @@
 #include "CAnimator.h"
 #include "CAnimation.h"
 
+CAnimator::CAnimator() :
+	m_pOwner(nullptr),
+	m_pCurAnim(nullptr)
+{}
+
+CAnimator::~CAnimator()
+{
+	Safe_Delete_Map(m_mapAnim);
+}
+
 void CAnimator::CreateAnimation
-(const wstring& _strName, CTexture* _pTex, 
+(const wstring& _strName, CTexture* _pTex,
 	Vec2 _vLT, //왼쪽 상단
 	Vec2 _vSliceSize, //자를 크기
-	Vec2 _vStep, 
-	float _fDuration, 
+	float _vStep,//다음 프레임까지의 거리
+	float _fDuration,
 	UINT _iFrameCount)
 {
 	CAnimation* pAnim = FindAnimation(_strName);
@@ -21,7 +31,6 @@ void CAnimator::CreateAnimation
 		);
 	}
 	//	assert(pAnim == nullptr);
-
 
 	pAnim = new CAnimation;
 	pAnim->SetName(_strName);
@@ -61,10 +70,8 @@ void CAnimator::update()
 	if (m_pCurAnim != nullptr)
 	{
 		m_pCurAnim->update();
-		if (m_bRepeat && m_pCurAnim->IsFinish())
-		{
-			m_pCurAnim->SetFrame(0);
-		}
+		if (!m_bRepeat) return;
+
 	}
 
 }
@@ -74,20 +81,10 @@ void CAnimator::finalupdate()
 
 }
 
-
 void CAnimator::render(HDC _dc)
 {
-	if (m_pCurAnim != nullptr) m_pCurAnim->render(_dc);
-}
-
-CAnimator::CAnimator() :
-	m_pOwner(nullptr),
-	m_pCurAnim(nullptr)
-{
-}
-
-CAnimator::~CAnimator()
-{
-	Safe_Delete_Map(m_mapAnim);
-
+	if (m_pCurAnim != nullptr)
+	{
+		m_pCurAnim->render(_dc);
+	}
 }

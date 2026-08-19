@@ -1,5 +1,6 @@
 #pragma once
 #include "CObject.h"
+#include <Windows.h>
 
 class CTexture;
 
@@ -23,6 +24,10 @@ enum class PLAYER_ATTACK_STATE
 
 class CPlayer :public CObject
 {
+public:
+	CPlayer();
+	~CPlayer();
+
 private:
 	vector<CObject*> m_vecColObj;
 
@@ -36,7 +41,7 @@ private:
 
 public:
 	virtual void update() override;
-	virtual void render(HDC _dc) override;
+	void render(HDC _dc)override;
 
 	void CreateMissile(int n);
 	void update_state();
@@ -48,8 +53,5 @@ public:
 
 	CLONE(CPlayer);
 
-public:
-	CPlayer();
-	~CPlayer();
 };
 

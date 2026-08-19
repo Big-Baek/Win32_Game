@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "CCamera.h"
 
+class CTexture;
 class CCollider;
 class CAnimator;
 class CRigidBody;
@@ -23,6 +24,7 @@ protected:
 	Vec2 m_vPos;
 	Vec2 m_vScale;
 
+	CTexture* m_pTex;
 	CCollider* m_pCollider;
 	CAnimator* m_pAnimator;
 	CRigidBody* m_pRigidBody;
@@ -32,8 +34,8 @@ protected:
 public:
 
 	virtual void Start() {}; //Scene이 시작되기 전에 호출
-	virtual void update() = 0;
-	virtual void finalupdate();
+	virtual void update() = 0; //상태 업데이트
+	virtual void Physics_update(); //물리 업데이트
 	virtual void render(HDC _dc);
 
 	virtual void OnCollision(CCollider* _pOther){}

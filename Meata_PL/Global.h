@@ -19,13 +19,6 @@ using namespace Gdiplus;
 
 using namespace std;
 
-using std::map;
-using std::string;
-using std::wstring;
-using std::vector;
-
-using std::make_pair;
-
 #include "define.h"
 #include "Vec.h"
 #include "func.h"

@@ -38,7 +38,7 @@ void CUI::update()
 
 void CUI::finalupdate()
 {
-	CObject::finalupdate();
+	CObject::Physics_update();
 
 	//UI의 최종 좌표 계산
 

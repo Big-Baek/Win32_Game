@@ -23,7 +23,9 @@ void CPathMgr::init()
 			break;
 		}
 	}
-	wcscat_s(m_szContentPath, 255, L"\\bin\\content\\");
+	wcscat_s(m_szContentPath, 255, L"\\Content\\");
+
+	//MessageBox(NULL, m_szContentPath, L"CurrentPath", MB_OK);
 }
 
 //상대경로 반환
