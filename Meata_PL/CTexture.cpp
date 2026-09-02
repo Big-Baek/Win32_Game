@@ -5,50 +5,37 @@
 
 CTexture::CTexture() :
     m_pImg(nullptr),
-	m_dc(0),
-	m_hbit(0),
-	m_bitInfo()
+    m_dc(0),
+    m_hbit(0)
 {
 }
 
 CTexture::~CTexture()
 {
-	DeleteDC(m_dc);
-	DeleteObject(m_hbit);
+    if (m_dc) DeleteDC(m_dc);
+    if (m_hbit) DeleteObject(m_hbit);
+    if (m_pImg)
+    {
+        delete m_pImg;
+        m_pImg = nullptr;
+    }
 }
 
-void CTexture::Load(const wstring& _strFilePath)
+bool CTexture::CreateTexture(const wstring& _Name, const wstring& _strFilePath)
 {
-	m_hbit = (HBITMAP)LoadImage(nullptr, _strFilePath.c_str(), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
-	//assert(m_hbit);
-	SetWindowText(CCore::GetInst()->GetMainHwnd(), _strFilePath.c_str());
+    m_pImg = new Image(_strFilePath.c_str());
 
-	//비트맵과 연결할 dc
-	m_dc = CreateCompatibleDC(CCore::GetInst()->GetMainDC());
-
-	HBITMAP hPrevBit = (HBITMAP)SelectObject(m_dc, m_hbit);
-	DeleteObject(hPrevBit);
-
-	//가로세로길이 필요
-	GetObject(m_hbit, sizeof(BITMAP), &m_bitInfo);
-}
-
-void CTexture::PNG_Load(const std::wstring& _strFilePath)
-{
-    // GDI+ Image 생성
-    m_pImg = new Gdiplus::Image(_strFilePath.c_str());
+    m_strKey = _Name;
+    m_strRelativePath = _strFilePath;
 
     // 로드 상태 확인
-    Gdiplus::Status st = m_pImg->GetLastStatus();
+    Status st = m_pImg->GetLastStatus();
 
     if (st == Gdiplus::Ok)
     {
-        m_bUseGDIPlus = true;
-        m_bitInfo.bmWidth = m_pImg->GetWidth();
-        m_bitInfo.bmHeight = m_pImg->GetHeight();
-        return;
+        return true;
     }
-
+    
     // 실패 시 메시지 출력
     wchar_t buf[256];
     swprintf_s(buf, L"GDI+ Load Failed (Status: %d)\nPath: %s", st, _strFilePath.c_str());
@@ -56,20 +43,18 @@ void CTexture::PNG_Load(const std::wstring& _strFilePath)
 
     delete m_pImg;
     m_pImg = nullptr;
+    return false;
 }
 
-void CTexture::Create(UINT _iWidth, UINT _iHeight)
+void CTexture::CreateBuffer(const wstring& _Name, UINT _iWidth, UINT _iHeight)
 {
+	m_strKey = _Name;
     HDC maindc = CCore::GetInst()->GetMainDC();
 
-    m_hbit = CreateCompatibleBitmap(maindc, _iWidth, _iHeight);
     m_dc = CreateCompatibleDC(maindc);
+    m_hbit = CreateCompatibleBitmap(maindc, _iWidth, _iHeight);
 
-    HBITMAP hOldBit = (HBITMAP)SelectObject(m_dc, m_hbit);
-    DeleteObject(hOldBit);
-
-    GetObject(m_hbit, sizeof(BITMAP), &m_bitInfo);
-
+    SelectObject(m_dc, m_hbit);
 }
 
 void CTexture::render(HDC hdc, int x, int y)

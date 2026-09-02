@@ -1,36 +1,34 @@
- #pragma once
+#pragma once
 #include "CRes.h"
 
 
 
-class CTexture:public CRes
+
+//백버퍼를 위한용도가 제일 클듯
+class CTexture :public CRes
 {
 public:
 	CTexture();
 	virtual ~CTexture();
 
 private:
+
 	HDC m_dc;
-	HBITMAP m_hbit;  
-	BITMAP m_bitInfo;
-
-public:
-	Gdiplus::Image* m_pImg;
-	bool m_bUseGDIPlus;
+	HBITMAP m_hbit;
+	Image* m_pImg;
 
 public:
 
+	bool CreateTexture(const wstring& _Name, const wstring& _strFilePath); //이미지 호출용
+	void CreateBuffer(const wstring& _Name, UINT _iWidth, UINT _iHeight); //백버퍼생성용
 
-	void Load(const wstring& _strFilePath);
-	void PNG_Load(const wstring& _strFilePath);
-
-	void Create(UINT _iWidth, UINT _iHeight);
 	void render(HDC hdc, int x, int y);
-	UINT Width() { return m_bitInfo.bmWidth; }
-	UINT Height() { return m_bitInfo.bmHeight; }
 
 	HDC GetDC() { return m_dc; }
-	Image* GetImg() { return m_pImg; }
+	Image* GetImg()
+	{
+		if (m_pImg) return m_pImg;
+	}
 
 	friend class CResMgr;//ResMgr를 통해서만 객체생성 가능
 };

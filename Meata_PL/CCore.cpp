@@ -28,8 +28,6 @@ CCore::CCore() :
 CCore::~CCore()
 {
 	ReleaseDC(m_hWnd, m_hDC);
-	//DeleteDC(m_memDC);
-	//DeleteObject(m_hBit);
 
 	for (int i = 0; i < (UINT)PEN_TYPE::END; i++)
 	{

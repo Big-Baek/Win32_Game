@@ -33,19 +33,18 @@ void CAnimator::CreateAnimation
 	//	assert(pAnim == nullptr);
 
 	pAnim = new CAnimation;
-	pAnim->SetName(_strName);
 	pAnim->m_pAnimator = this;
-	pAnim->Create(_pTex, _vLT, _vSliceSize, _vStep, _fDuration, _iFrameCount);
+	pAnim->Create(_strName, _pTex, _vLT, _vSliceSize, _vStep, _fDuration, _iFrameCount);
 
 	m_mapAnim.insert(make_pair(_strName, pAnim));
 }
 
-void CAnimator::LoadAnimation(const wstring& _strRelativePath)
+void CAnimator::LoadAnimation(const wstring& _Name)
 {
 	CAnimation* pAnim = new CAnimation;
-	pAnim->Load(_strRelativePath);
-
+	pAnim->Load(_Name);
 	pAnim->m_pAnimator = this;
+
 	m_mapAnim.insert(make_pair(pAnim->GetName(), pAnim));
 }
 

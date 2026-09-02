@@ -4,7 +4,11 @@
 
 class CRes
 {
-private:
+public:
+	CRes();
+	virtual ~CRes();
+
+protected:
 	wstring m_strKey;		  //리소스 키
 	wstring m_strRelativePath;//리소스 상대경로
 
@@ -15,10 +19,5 @@ public:
 
 	const wstring& GetKey() { return m_strKey; }
 	const wstring& GetRelativePath() { return m_strRelativePath; }
-
-public:
-	CRes();
-	virtual ~CRes();
-
 };
 

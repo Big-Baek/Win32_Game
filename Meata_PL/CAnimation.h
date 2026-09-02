@@ -8,7 +8,7 @@ struct tAnimFrm
 {
 	Vec2 vLt; //좌상단
 	Vec2 vSlice; //우하단
-	Vec2 vOffset; //?
+	Vec2 vOffset;
 
 	float fDuration;
 };
@@ -16,6 +16,7 @@ struct tAnimFrm
 class CAnimation
 {
 private:
+
 	wstring				m_strName;		//애니메이션 이름
 	CAnimator*			m_pAnimator;	//자신을 사용하는 애니메이터
 	CTexture*		    m_pTex;			//스프라이트 시트 텍스쳐
@@ -36,17 +37,19 @@ public:
 	tAnimFrm& GetFrame(int _iIdx) { return m_vecFrm[_iIdx]; }
 	UINT GetMaxFrame() { return (UINT)m_vecFrm.size(); }
 
-
 public:
 
 	void update();
+	void Tool_update();
+
 	void render(HDC _dc);
+	void accrender(HWND _dc);
 	void RenderOnTool(HDC _dc, int x, int y);
 
-	void Create(CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, float _vStep, float _fDuration, UINT _iFrameCount);
+	void Create(const wstring& Name, CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, float _vStep, float _fDuration, UINT _iFrameCount);
 	//텍스쳐, 좌상단, 우하단, 다음 프레임 간격, 프레임간 시간, 
-
-	void Save(const wstring& _strRelativePath);
+	
+	void Save(const wstring& _Name); //파일이름만 받아서 Content폴더 안에 저장
 	void Load(const wstring& _strRelativePath);
 
 public:

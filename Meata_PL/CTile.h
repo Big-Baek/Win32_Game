@@ -24,7 +24,7 @@ public:
 
 private:
 	virtual void update();
-	virtual void render(HDC _dc);
+	//virtual void render(HDC _dc);
 
 public:
 	virtual void Save(FILE* _pFile);

@@ -2,6 +2,7 @@
 #include "Metal_PL.h"
 #include "Global.h"
 #include "CCore.h"
+#include "CResMgr.h"
 
 #define MAX_LOADSTRING 100
 
@@ -18,6 +19,7 @@ INT_PTR CALLBACK    EditorProc(HWND, UINT, WPARAM, LPARAM);
 
 
 HWND g_hWnd;
+HWND g_AnimToolDlg = nullptr;
 
 ULONG_PTR gdiplusToken;
 Gdiplus::GdiplusStartupInput gdiplussti;
@@ -54,19 +56,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (msg.message == WM_QUIT) break;
-            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            if (!IsDialogMessage(g_AnimToolDlg, &msg)&& !TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
             {
                 TranslateMessage(&msg);
                 DispatchMessage(&msg);
             }
         }
-        else//메시지가 발생하지 않는 시간
+        else
         {
             CCore::GetInst()->progress();
         }
 
     }
 
+    CResMgr::GetInst()->Release();
     Gdiplus::GdiplusShutdown(gdiplusToken);
     return (int)msg.wParam;
 }
@@ -120,7 +123,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             case ID_Menu_Anim:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_AnimView), hWnd, EditorProc);
+                //DialogBox(hInst, MAKEINTRESOURCE(IDD_AnimView), hWnd, EditorProc);
+                g_AnimToolDlg = CreateDialog(hInst, MAKEINTRESOURCE(IDD_AnimView), hWnd, EditorProc);
+                ShowWindow(g_AnimToolDlg, SW_SHOW);
+
                 break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);

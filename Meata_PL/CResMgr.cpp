@@ -4,10 +4,28 @@
 #include "CTexture.h"
 #include "CRes.h"
 
-#include <iostream>
+CResMgr::CResMgr()
+{}
 
-//절대경로, 상대경로 인자
-CTexture* CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRelativePath)
+CResMgr::~CResMgr()
+{}
+
+void CResMgr::Release()
+{
+	auto iter = m_mapTex.begin();
+	for (; iter != m_mapTex.end(); iter++)
+	{
+		if (iter->second != nullptr)
+		{
+			delete iter->second;
+			iter->second = nullptr;
+		}
+	}
+
+	m_mapTex.clear();
+}
+
+CTexture* CResMgr::CreateAbsolute(const wstring& _strKey, const wstring& _strRelativePath)
 {
 	CTexture* pTex = FindTexture(_strKey);
 	if (pTex != nullptr)
@@ -15,16 +33,28 @@ CTexture* CResMgr::LoadTexture(const wstring& _strKey, const wstring& _strRelati
 		return pTex;
 	}
 
-	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	strFilePath += _strRelativePath;
+	pTex = new CTexture;
+	pTex->CreateTexture(_strKey, _strRelativePath); //전체경로를 통해서 PNG로드
+
+	m_mapTex.insert(make_pair(_strKey, pTex));
+
+	return pTex;
+}
+
+CTexture* CResMgr::CreateRelative(const wstring& _strKey, const wstring& _strRelativePath)
+{
+	CTexture* pTex = FindTexture(_strKey);
+	if (pTex != nullptr)
+	{
+		return pTex;
+	}
+
+	wstring strFilePath = CPathMgr::GetInst()->GetContentPath(); //Content폴더까지의 경로
+	strFilePath += _strRelativePath; //Content + 원하는 파일까지 경로 더하기 = 전체경로
 
 	pTex = new CTexture;
-	//pTex->Load(strFilePath);
-	pTex->PNG_Load(strFilePath);
-	pTex->SetKey(_strKey);
-	pTex->SetRelativePath(_strRelativePath);
+	pTex->CreateTexture(_strKey, strFilePath);//전체경로를 통해서 PNG로드
 
-	//중복 방지. 이미 키값이 있으면 덮어쓰기 못함
 	m_mapTex.insert(make_pair(_strKey, pTex));
 
 	return pTex;
@@ -39,13 +69,11 @@ CTexture* CResMgr::CreateTexture(const wstring& _strKey, UINT _iWidth, UINT _iHe
 	}
 
 	pTex = new CTexture;
-	pTex->Create(_iWidth, _iHeight);
+	pTex->CreateBuffer(_strKey, _iWidth, _iHeight);
 	pTex->SetKey(_strKey);
 
 	//중복 방지. 이미 키값이 있으면 덮어쓰기 못함
 	m_mapTex.insert(make_pair(_strKey, pTex));
-
-
 
 	return pTex;
 }
@@ -60,24 +88,4 @@ CTexture* CResMgr::FindTexture(const wstring& _strKey)
 	}
 
 	return (CTexture*)iter->second;
-}
-
-CResMgr::CResMgr()
-{
-}
-
-CResMgr::~CResMgr()
-{
-	auto iter = m_mapTex.begin();
-	for (; iter != m_mapTex.end(); iter++)
-	{
-		if (iter->second != nullptr)
-		{
-			delete iter->second;
-		}
-	}
-
-	m_mapTex.clear();
-
-	//Safe_Delete_Map(m_mapTex);
 }

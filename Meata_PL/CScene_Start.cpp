@@ -122,7 +122,6 @@ void CScene_Start::Enter()
 	pObj->SetPos(Vec2(640.f, 384.f));
 	pObj->SetScale(Vec2(10.f, 10.f));
 	AddObject(pObj, GROUP_TYPE::PLAYER);
-
 	RegisterPlayer(pObj);
 
 	//Ä«¸Þ¶ó 

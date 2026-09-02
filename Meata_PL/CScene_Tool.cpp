@@ -136,12 +136,12 @@ void CScene_Tool::LoadTileData()
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
 	//Modal 방식 (이 인터페이스가 처리되기전까지 다른작업은 중지됨)
-	if (GetOpenFileName(&ofn))//저장 누르면 true로, 취소 누르면 false로 들어옴
-	{
-		//최종경로에서 짤라서 load해야됨
-		wstring strRelativePath = CPathMgr::GetInst()->GetRelativePath(szName);
-		LoadTile(strRelativePath);
-	}
+	//if (GetOpenFileName(&ofn))//저장 누르면 true로, 취소 누르면 false로 들어옴
+	//{
+	//	//최종경로에서 짤라서 load해야됨
+	//	wstring strRelativePath = CPathMgr::GetInst()->GetRelativePath(szName);
+	//	LoadTile(strRelativePath);
+	//}
 }
 
 void CScene_Tool::SaveTileData()

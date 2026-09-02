@@ -15,6 +15,7 @@
 #define IDD_DIALOG1                     129
 #define IDD_AnimView                    130
 #define IDC_EDIT1                       1000
+#define IDC_Name                        1000
 #define IDC_BUTTON1                     1002
 #define IDCANCEL                        1008
 #define IDC_SP_X                        1009

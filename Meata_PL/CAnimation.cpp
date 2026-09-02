@@ -8,10 +8,14 @@
 #include "CPathMgr.h"
 #include "CResMgr.h"
 
+#include <fstream>
+#include <sstream>
+
 CAnimation::CAnimation() :
 	m_pAnimator(nullptr),
 	m_pTex(nullptr),
-	m_iCurFrm(0)
+	m_iCurFrm(0),
+	m_fAccTime(0)
 {}
 
 CAnimation::~CAnimation()
@@ -34,9 +38,31 @@ void CAnimation::update()
 		}
 
 		m_fAccTime = m_fAccTime - m_vecFrm[m_iCurFrm].fDuration;
-
 	}
 
+}
+
+void CAnimation::Tool_update()
+{
+	float a = fDT;
+
+	double factor = (1.0 / a) / 10.0; // 0.1초마다 호출 → 1초에 10번
+
+	m_fAccTime += a * factor;
+
+	if (m_vecFrm[m_iCurFrm].fDuration < m_fAccTime)
+	{
+		++m_iCurFrm;
+
+		if (m_vecFrm.size() <= m_iCurFrm)
+		{
+			m_iCurFrm = 0;
+			m_fAccTime = 0.f;
+			return;
+		}
+
+		m_fAccTime -= m_vecFrm[m_iCurFrm].fDuration;
+	}
 }
 
 void CAnimation::render(HDC _dc)
@@ -70,6 +96,14 @@ void CAnimation::render(HDC _dc)
 	g.DrawImage(m_pTex->GetImg(), dst, src.X, src.Y, src.Width, src.Height, UnitPixel);
 }
 
+void CAnimation::accrender(HWND _dc)
+{
+	wchar_t szBuffer[255] = {};
+	float a = fDT;
+	swprintf_s(szBuffer, L"Acc: %f fdt: %f", m_fAccTime, a);
+	SetWindowText(_dc, szBuffer);
+}
+
 void CAnimation::RenderOnTool(HDC _dc, int x, int y)
 {
 	Graphics g(_dc);
@@ -95,10 +129,10 @@ void CAnimation::RenderOnTool(HDC _dc, int x, int y)
 	g.DrawImage(m_pTex->GetImg(), dst, src.X, src.Y, src.Width, src.Height, UnitPixel);
 }
 
-
-void CAnimation::Create(CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, float _vStep, float _fDuration, UINT _iFrameCount)
+void CAnimation::Create(const wstring& Name, CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, float _vStep, float _fDuration, UINT _iFrameCount)
 {
 	m_pTex = _pTex;
+	m_strName = Name;
 
 	tAnimFrm frm = {};
 	for (UINT i = 0; i < _iFrameCount; i++)
@@ -111,129 +145,134 @@ void CAnimation::Create(CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, float _vSt
 	}
 }
 
-void CAnimation::Save(const wstring& _strRelativePath)
+void CAnimation::Save(const std::wstring& name)
 {
-	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	strFilePath += _strRelativePath;
+	//저장할 위치
+	std::wstring path = CPathMgr::GetInst()->GetContentPath();
+	path += L"Animation\\";
+	path += name;
+	path += L".anim";
 
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strFilePath.c_str(), L"wb");
-
-	assert(pFile);
-
-
-	//Animation의 이름 저장
-	fprintf(pFile, "[Aniation Name]\n");
-	string strName = string(m_strName.begin(), m_strName.end());
-	fprintf(pFile, strName.c_str());
-	fprintf(pFile, "\n");
-
-	//Animation이 사용하는 Texture
-	fprintf(pFile, "[Texture Name]\n");
-	strName = string(m_pTex->GetKey().begin(), m_pTex->GetKey().end());
-	fprintf(pFile, strName.c_str());
-	fprintf(pFile, "\n");
-
-	fprintf(pFile, "[Texture Path]\n");
-	strName = string(m_pTex->GetRelativePath().begin(), m_pTex->GetRelativePath().end());
-	fprintf(pFile, strName.c_str());
-	fprintf(pFile, "\n");
-
-
-	//SaveWString(m_pTex->GetKey(), pFile);
-	//SaveWString(m_pTex->GetRelativePath(), pFile);
-
-	//프레임 갯수
-	fprintf(pFile, "[Frame Count]\n");
-	fprintf(pFile, " %d\n", m_vecFrm.size());
-
-
-	//모든 프레임 정보
-	for (size_t i = 0; i < m_vecFrm.size(); i++)
+	std::wofstream file(path);
+	if (!file.is_open())
 	{
-		fprintf(pFile, "[Frame Index]\n");
-		fprintf(pFile, "%d\n", (int)i);
-
-		fprintf(pFile, "[Left Top]\n");
-		fprintf(pFile, "%d,%d\n", (int)m_vecFrm[i].vLt.x, (int)m_vecFrm[i].vLt.y);
-
-		fprintf(pFile, "[Slice Size]\n");
-		fprintf(pFile, "%d,%d\n", (int)m_vecFrm[i].vSlice.x, (int)m_vecFrm[i].vSlice.y);
-
-		fprintf(pFile, "[OffSet]\n");
-		fprintf(pFile, "%d,%d\n", (int)m_vecFrm[i].vOffset.x, (int)m_vecFrm[i].vOffset.y);
-
-		fprintf(pFile, "[Duration]\n");
-		fprintf(pFile, "%f\n", m_vecFrm[i].fDuration);
+		// 여기서 메시지 띄우거나 그냥 return 해도 됨
+		return;
 	}
 
+	file << L"[Animation Name]: " << m_strName << L"\n";
+	file << L"[Texture Name]: " << m_pTex->GetKey() << L"\n";
+	file << L"[Texture Path]: " << m_pTex->GetRelativePath() << L"\n";
+	file << L"[Frame Count]: " << m_vecFrm.size() << L"\n";
+	file << endl;
 
-	//size_t iFrameCount = m_vecFrm.size();
-	//fwrite(&iFrameCount, sizeof(size_t), 1, pFile);
+	for (size_t i = 0; i < m_vecFrm.size(); ++i)
+	{
+		const auto& frm = m_vecFrm[i];
 
-	//모든 프레임 정보
-	//fwrite(m_vecFrm.data(), sizeof(tAnimFrm), iFrameCount, pFile);
-	fclose(pFile);
+		file << L"[Frame Index]: " << i << L"\n";
+		file << L"[Left Top]: " << frm.vLt.x << L"," << frm.vLt.y << L"\n";
+		file << L"[Slice Size]: " << frm.vSlice.x << L"," << frm.vSlice.y << L"\n";
+		file << L"[Offset]: " << frm.vOffset.x << L"," << frm.vOffset.y << L"\n";
+		file << L"[Duration]: " << frm.fDuration << L"\n";
+		file << endl;
+	}
 }
 
-void CAnimation::Load(const wstring& _strRelativePath)
+void CAnimation::Load(const wstring& name)
 {
-	wstring strFilePath = CPathMgr::GetInst()->GetContentPath();
-	strFilePath += _strRelativePath;
+	//전체 경로를 통해서 파일을 열기
+	wstring path = CPathMgr::GetInst()->GetContentPath();
+	path += L"Animation\\";
+	path += name;
+	path += L".anim";
 
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strFilePath.c_str(), L"rb");
-	assert(pFile);
+	wifstream file(path);
+	if (!file.is_open())
+		return;
 
-	//Animation 이름 읽기
-	string str;
-	char szBuff[256] = {};
+	wstring line;
 
-	FScanf(szBuff, pFile);
-	FScanf(szBuff, pFile);
-	str = szBuff;
-
-	m_strName = wstring(str.begin(), str.end());
-
-	//참조하는 텍스쳐 이름 및 경로
-	FScanf(szBuff, pFile);
-	FScanf(szBuff, pFile);
-	str = szBuff;
-
-	wstring strTexKey = wstring(str.begin(), str.end());
-
-	FScanf(szBuff, pFile);
-	FScanf(szBuff, pFile);
-	str = szBuff;
-
-	wstring strTexPath = wstring(str.begin(), str.end());
-
-	m_pTex = CResMgr::GetInst()->LoadTexture(strTexKey, strTexPath);
-
-
-	//프레임 갯수
-	FScanf(szBuff, pFile);
-	int iFrameCount = 0;
-	fscanf_s(pFile, "%d", &iFrameCount);
-
-	//모든 프레임 정보
-	for (size_t i = 0; i < iFrameCount; i++)
-	{
-		POINT pt = {};
-
-		while (true)
+	//:뒤의 값만 추출
+	auto GetValue = [&](const wstring& src)
 		{
-			FScanf(szBuff, pFile);
+			size_t pos = src.find(L":");
+			if (pos == wstring::npos) return wstring();
 
-			if (!strcmp("[Frame Index]", szBuff))
-			{
-				//fscanf_s(pFile,"%d", )
-			}
-			else if (!strcmp("[Left Top]", szBuff))
-			{
+			wstring val = src.substr(pos + 1);
 
-			}
+			// 앞뒤 공백 제거
+			size_t start = val.find_first_not_of(L" \t");
+			size_t end = val.find_last_not_of(L" \t");
+
+			if (start == wstring::npos) return wstring();
+			return val.substr(start, end - start + 1);
+		};
+
+
+	// [Animation Name]: Neo_Cold
+	getline(file, line); //한라인을 읽음
+	m_strName = GetValue(line); //라인에서 :앞쪽을 제거한 나머지 이름
+
+	// [Texture Name]: Neo_Cold
+	getline(file, line);
+	wstring texKey = GetValue(line);
+
+	// [Texture Path]: D:\...\Neo_Cold.png
+	getline(file, line);
+	wstring texPath = GetValue(line);
+
+	m_pTex = CResMgr::GetInst()->CreateAbsolute(texKey, texPath);
+
+	// [Frame Count]: 16
+	getline(file, line);
+	int frameCount = stoi(GetValue(line));
+
+	m_vecFrm.clear();
+	m_vecFrm.reserve(frameCount);
+
+	for (int i = 0; i < frameCount; ++i)
+	{
+		tAnimFrm frm{};
+		wstring value;
+
+		// [Frame Index]
+		getline(file, line);
+
+		// [Left Top]
+		getline(file, line);
+		value = GetValue(line);
+		{
+			wstringstream ss(value);
+			wchar_t comma;
+			ss >> frm.vLt.x >> comma >> frm.vLt.y;
 		}
+
+		// [Slice Size]
+		getline(file, line);
+		value = GetValue(line);
+		{
+			wstringstream ss(value);
+			wchar_t comma;
+			ss >> frm.vSlice.x >> comma >> frm.vSlice.y;
+		}
+
+		// [Offset]
+		getline(file, line);
+		value = GetValue(line);
+		{
+			wstringstream ss(value);
+			wchar_t comma;
+			ss >> frm.vOffset.x >> comma >> frm.vOffset.y;
+		}
+
+		// [Duration]
+		getline(file, line);
+		frm.fDuration = stof(GetValue(line));
+
+		m_vecFrm.push_back(frm);
+
+		// 빈 줄 스킵
+		getline(file, line);
 	}
-	fclose(pFile);
 }

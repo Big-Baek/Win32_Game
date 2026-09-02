@@ -92,13 +92,13 @@ void CCamera::render(HDC _dc)
 	bf.AlphaFormat = 0;
 	bf.SourceConstantAlpha = iAlpha;//Åõ¸íµµ
 
-	AlphaBlend(_dc, 0, 0,
-		(int)m_pVeilTex->Width(),
-		(int)m_pVeilTex->Height(),
-		m_pVeilTex->GetDC(), 0, 0,
-		(int)m_pVeilTex->Width(),
-		(int)m_pVeilTex->Height(),
-		bf);
+	//AlphaBlend(_dc, 0, 0,
+	//	(int)m_pVeilTex->Width(),
+	//	(int)m_pVeilTex->Height(),
+	//	m_pVeilTex->GetDC(), 0, 0,
+	//	(int)m_pVeilTex->Width(),
+	//	(int)m_pVeilTex->Height(),
+	//	bf);
 
 	if (ef.fDuration < ef.fCurTime)
 	{

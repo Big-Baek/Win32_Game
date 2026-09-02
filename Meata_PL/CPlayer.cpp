@@ -26,8 +26,7 @@ CPlayer::CPlayer()
 	GetCollider()->SetOffSetPos(Vec2(0.f, 5.f));
 	GetCollider()->SetScale(Vec2(40.f, 60.f));
 
-
-	m_pTex = CResMgr::GetInst()->LoadTexture(L"PlayerTex", L"Texture\\Neo_Cold.png");
+	GetAnimator()->LoadAnimation(L"Neo_Cold");
 
 
 	//GetAnimator()->CreateAnimation()
@@ -36,7 +35,8 @@ CPlayer::CPlayer()
 	//GetAnimator()->LoadAnimation(L"animation\\player_walk_left.anim");
 	//GetAnimator()->LoadAnimation(L"animation\\player_walk_right.anim");
 
-	GetAnimator()->CreateAnimation(L"Cold", m_pTex, Vec2(0.f, 0.f), Vec2(35.f, 35.f), 35.f, 0.1f, 16);
+	//GetAnimator()->CreateAnimation(L"Cold", m_pTex, Vec2(0.f, 0.f), Vec2(35.f, 35.f), 35.f, 0.1f, 16);
+
 	//GetAnimator()->CreateAnimation(L"IDLE_RIGHT", m_pTex, Vec2(0.f, 195.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 3);
 	//GetAnimator()->CreateAnimation(L"WALK_LEFT", m_pTex, Vec2(0.f, 325.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 10);
 	//GetAnimator()->CreateAnimation(L"WALK_RIGHT", m_pTex, Vec2(0.f, 455.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 10);
@@ -48,7 +48,7 @@ CPlayer::CPlayer()
 	//GetAnimator()->FindAnimation(L"WALK_RIGHT")->Save(L"animation\\player_walk_right.anim");
 
 	CreateGravity();
-	GetAnimator()->Play(L"Cold", true);
+	GetAnimator()->Play(L"Neo_Cold", true);
 }
 
 CPlayer::~CPlayer()

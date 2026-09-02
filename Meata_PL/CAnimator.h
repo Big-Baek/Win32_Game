@@ -21,7 +21,7 @@ public:
 
 
 	void CreateAnimation(const wstring& _strName, CTexture* _pTex, Vec2 _vLT,Vec2 _vSliceSize, float _vStep, float _fDuration, UINT _iFrameCount);
-	void LoadAnimation(const wstring& _strRelativePath);
+	void LoadAnimation(const wstring& _Name);
 	CAnimation* FindAnimation(const wstring& _strName);
 	void Play(const wstring& _strName ,bool _bRepeat); //이 애니메이션을 플레이
 
@@ -36,6 +36,6 @@ public:
 	~CAnimator();
 
 	friend class CObject;
-
+	friend class AnimTool;
 };
 
