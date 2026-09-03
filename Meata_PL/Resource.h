@@ -29,6 +29,9 @@
 #define IDSave                          1018
 #define IDApply                         1019
 #define IDC_DISPLAY                     1020
+#define IDC_Offset_x                    1021
+#define IDC_Offset_x2                   1022
+#define IDC_Offset_y                    1022
 #define ID_32771                        32771
 #define ID_AnimView                     32772
 #define ID_Menu_Anim                    32773

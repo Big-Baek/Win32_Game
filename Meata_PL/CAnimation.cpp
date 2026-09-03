@@ -70,7 +70,7 @@ void CAnimation::render(HDC _dc)
 
 	CObject* pObj = m_pAnimator->Getobj();
 	Vec2 vPos = pObj->GetPos();
-	vPos += m_vecFrm[m_iCurFrm].vOffset;
+	vPos += m_vOffset;
 
 	// 카메라 변환
 	vPos = CCamera::GetInst()->GetRenderPos(vPos);
@@ -129,10 +129,11 @@ void CAnimation::RenderOnTool(HDC _dc, int x, int y)
 	g.DrawImage(m_pTex->GetImg(), dst, src.X, src.Y, src.Width, src.Height, UnitPixel);
 }
 
-void CAnimation::Create(const wstring& Name, CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, float _vStep, float _fDuration, UINT _iFrameCount)
+void CAnimation::Create(const wstring& Name, CTexture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, Vec2 _vOffset, float _vStep, float _fDuration, UINT _iFrameCount)
 {
 	m_pTex = _pTex;
 	m_strName = Name;
+	m_vOffset = _vOffset;
 
 	tAnimFrm frm = {};
 	for (UINT i = 0; i < _iFrameCount; i++)
@@ -173,7 +174,6 @@ void CAnimation::Save(const std::wstring& name)
 		file << L"[Frame Index]: " << i << L"\n";
 		file << L"[Left Top]: " << frm.vLt.x << L"," << frm.vLt.y << L"\n";
 		file << L"[Slice Size]: " << frm.vSlice.x << L"," << frm.vSlice.y << L"\n";
-		file << L"[Offset]: " << frm.vOffset.x << L"," << frm.vOffset.y << L"\n";
 		file << L"[Duration]: " << frm.fDuration << L"\n";
 		file << endl;
 	}
@@ -209,7 +209,6 @@ void CAnimation::Load(const wstring& name)
 			return val.substr(start, end - start + 1);
 		};
 
-
 	// [Animation Name]: Neo_Cold
 	getline(file, line); //한라인을 읽음
 	m_strName = GetValue(line); //라인에서 :앞쪽을 제거한 나머지 이름
@@ -228,12 +227,16 @@ void CAnimation::Load(const wstring& name)
 	getline(file, line);
 	int frameCount = stoi(GetValue(line));
 
+	getline(file, line); //빈 줄 스킵
+
 	m_vecFrm.clear();
 	m_vecFrm.reserve(frameCount);
 
+
+	tAnimFrm frm{};
+
 	for (int i = 0; i < frameCount; ++i)
 	{
-		tAnimFrm frm{};
 		wstring value;
 
 		// [Frame Index]
@@ -243,7 +246,7 @@ void CAnimation::Load(const wstring& name)
 		getline(file, line);
 		value = GetValue(line);
 		{
-			wstringstream ss(value);
+			wstringstream ss(value); 
 			wchar_t comma;
 			ss >> frm.vLt.x >> comma >> frm.vLt.y;
 		}
@@ -257,15 +260,6 @@ void CAnimation::Load(const wstring& name)
 			ss >> frm.vSlice.x >> comma >> frm.vSlice.y;
 		}
 
-		// [Offset]
-		getline(file, line);
-		value = GetValue(line);
-		{
-			wstringstream ss(value);
-			wchar_t comma;
-			ss >> frm.vOffset.x >> comma >> frm.vOffset.y;
-		}
-
 		// [Duration]
 		getline(file, line);
 		frm.fDuration = stof(GetValue(line));
@@ -275,4 +269,5 @@ void CAnimation::Load(const wstring& name)
 		// 빈 줄 스킵
 		getline(file, line);
 	}
+
 }

@@ -50,7 +50,7 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 	m_hDC = GetDC(m_hWnd);
 
 	//이중 버퍼링 용도 비트맵, DC
-	m_pMemTex = CResMgr::GetInst()->CreateTexture(L"BackBuffer", (UINT)m_ptResolution.x, (UINT)m_ptResolution.y);
+	m_pMemTex = CResMgr::GetInst()->CreateBuffer(L"BackBuffer", (UINT)m_ptResolution.x, (UINT)m_ptResolution.y);
 
 	//화면 dc와 호환되는 비트맵 생성
 	//m_hBit = CreateCompatibleBitmap(m_hDC, m_ptResolution.x, m_ptResolution.y);

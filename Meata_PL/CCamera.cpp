@@ -23,7 +23,7 @@ void CCamera::init()
 {
 	Vec2 vResolution = CCore::GetInst()->GetResolution();
 
-	m_pVeilTex = CResMgr::GetInst()->CreateTexture(L"CameraVeil",
+	m_pVeilTex = CResMgr::GetInst()->CreateBuffer(L"CameraVeil",
 		(UINT)vResolution.x,
 		(UINT)vResolution.y);
 }

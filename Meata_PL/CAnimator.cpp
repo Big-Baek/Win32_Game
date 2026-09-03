@@ -15,6 +15,7 @@ void CAnimator::CreateAnimation
 (const wstring& _strName, CTexture* _pTex,
 	Vec2 _vLT, //왼쪽 상단
 	Vec2 _vSliceSize, //자를 크기
+	Vec2 _vOffset,//기준좌표로부터의 상대좌표
 	float _vStep,//다음 프레임까지의 거리
 	float _fDuration,
 	UINT _iFrameCount)
@@ -34,7 +35,7 @@ void CAnimator::CreateAnimation
 
 	pAnim = new CAnimation;
 	pAnim->m_pAnimator = this;
-	pAnim->Create(_strName, _pTex, _vLT, _vSliceSize, _vStep, _fDuration, _iFrameCount);
+	pAnim->Create(_strName, _pTex, _vLT, _vSliceSize, _vOffset, _vStep, _fDuration, _iFrameCount);
 
 	m_mapAnim.insert(make_pair(_strName, pAnim));
 }
@@ -42,8 +43,8 @@ void CAnimator::CreateAnimation
 void CAnimator::LoadAnimation(const wstring& _Name)
 {
 	CAnimation* pAnim = new CAnimation;
-	pAnim->Load(_Name);
 	pAnim->m_pAnimator = this;
+	pAnim->Load(_Name);
 
 	m_mapAnim.insert(make_pair(pAnim->GetName(), pAnim));
 }

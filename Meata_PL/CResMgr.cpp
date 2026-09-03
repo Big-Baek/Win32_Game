@@ -25,7 +25,7 @@ void CResMgr::Release()
 	m_mapTex.clear();
 }
 
-CTexture* CResMgr::CreateAbsolute(const wstring& _strKey, const wstring& _strRelativePath)
+CTexture* CResMgr::CreateAbsolute(const wstring& _strKey, const wstring& _strAbsolute_path)
 {
 	CTexture* pTex = FindTexture(_strKey);
 	if (pTex != nullptr)
@@ -34,7 +34,7 @@ CTexture* CResMgr::CreateAbsolute(const wstring& _strKey, const wstring& _strRel
 	}
 
 	pTex = new CTexture;
-	pTex->CreateTexture(_strKey, _strRelativePath); //전체경로를 통해서 PNG로드
+	pTex->CreateTexture(_strKey, _strAbsolute_path); //전체경로를 통해서 PNG로드
 
 	m_mapTex.insert(make_pair(_strKey, pTex));
 
@@ -60,7 +60,7 @@ CTexture* CResMgr::CreateRelative(const wstring& _strKey, const wstring& _strRel
 	return pTex;
 }
 
-CTexture* CResMgr::CreateTexture(const wstring& _strKey, UINT _iWidth, UINT _iHeight)
+CTexture* CResMgr::CreateBuffer(const wstring& _strKey, UINT _iWidth, UINT _iHeight)
 {
 	CTexture* pTex = FindTexture(_strKey);
 	if (pTex != nullptr)

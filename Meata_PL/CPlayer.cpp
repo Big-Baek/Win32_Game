@@ -28,24 +28,8 @@ CPlayer::CPlayer()
 
 	GetAnimator()->LoadAnimation(L"Neo_Cold");
 
-
-	//GetAnimator()->CreateAnimation()
-	//GetAnimator()->LoadAnimation(L"animation\\player_idle_left.anim");
-	//GetAnimator()->LoadAnimation(L"animation\\player_idle_right.anim");
-	//GetAnimator()->LoadAnimation(L"animation\\player_walk_left.anim");
-	//GetAnimator()->LoadAnimation(L"animation\\player_walk_right.anim");
-
+	//m_pTex = CResMgr::GetInst()->CreateRelative(L"Neo_Cold", L"Texture\\Neo_Cold.png");
 	//GetAnimator()->CreateAnimation(L"Cold", m_pTex, Vec2(0.f, 0.f), Vec2(35.f, 35.f), 35.f, 0.1f, 16);
-
-	//GetAnimator()->CreateAnimation(L"IDLE_RIGHT", m_pTex, Vec2(0.f, 195.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 3);
-	//GetAnimator()->CreateAnimation(L"WALK_LEFT", m_pTex, Vec2(0.f, 325.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 10);
-	//GetAnimator()->CreateAnimation(L"WALK_RIGHT", m_pTex, Vec2(0.f, 455.f), Vec2(60.f, 65.f), Vec2(60.f, 0.f), 0.1f, 10);
-
-	////애니메이션 저장해보기
-	//GetAnimator()->FindAnimation(L"IDLE_LEFT")->Save(L"animation\\player_idle_left.anim");
-	//GetAnimator()->FindAnimation(L"IDLE_RIGHT")->Save(L"animation\\player_idle_right.anim");
-	//GetAnimator()->FindAnimation(L"WALK_LEFT")->Save(L"animation\\player_walk_left.anim");
-	//GetAnimator()->FindAnimation(L"WALK_RIGHT")->Save(L"animation\\player_walk_right.anim");
 
 	CreateGravity();
 	GetAnimator()->Play(L"Neo_Cold", true);

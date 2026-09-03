@@ -14,6 +14,11 @@ float GetDlgFloat(HWND hDlg, int nID)
 {
 	wchar_t szBuf[64] = {};
 	GetDlgItemText(hDlg, nID, szBuf, 64);
+
+	if (wcslen(szBuf) == 0)
+	{
+		return 0.f;
+	}
 	return static_cast<float>(_wtof(szBuf));
 }
 
@@ -49,10 +54,10 @@ void AnimTool::Apply(HWND hDlg)
 		m_pTex,														    //스프라이트시트
 		Vec2(GetDlgFloat(hDlg, IDC_SP_X), GetDlgFloat(hDlg, IDC_SP_Y)), //좌상단 좌표
 		Vec2(GetDlgFloat(hDlg, IDC_EP_X), GetDlgFloat(hDlg, IDC_EP_Y)), //우하단 좌표
+		Vec2(GetDlgFloat(hDlg, IDC_Offset_x), GetDlgFloat(hDlg, IDC_Offset_y)), //상대좌표
 		GetDlgFloat(hDlg, IDC_Step),								    //스텝간격
 		GetDlgFloat(hDlg, IDC_Duration),							    //프레임간 재생간격
 		GetDlgFloat(hDlg, IDC_Count));									//총 프레임갯수
-
 }
 
 INT_PTR CALLBACK EditorProc(HWND hDlg, UINT msg, WPARAM wParam, LPARAM lParam)
