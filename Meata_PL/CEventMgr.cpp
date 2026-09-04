@@ -81,7 +81,7 @@ void CEventMgr::Excute(const tEvent& _eve)
 		//wParam: NextType
 
 		AI* pAI = (AI*)_eve.LParam;
-		MON_STATE eNextState = (MON_STATE)_eve.wParam;
+		STATE eNextState = (STATE)_eve.wParam;
 		pAI->ChangeState(eNextState);
 
 	}

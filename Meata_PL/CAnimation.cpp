@@ -39,16 +39,18 @@ void CAnimation::update()
 
 		m_fAccTime = m_fAccTime - m_vecFrm[m_iCurFrm].fDuration;
 	}
-
 }
 
 void CAnimation::Tool_update()
 {
-	float a = fDT;
+	float DeltaTime = fDT;
 
-	double factor = (1.0 / a) / 10.0; // 0.1초마다 호출 → 1초에 10번
+	double OriginHZ = 1.0 / DeltaTime;
+	double TargetHZ = 10.0;
 
-	m_fAccTime += a * factor;
+	double factor = OriginHZ / TargetHZ;
+
+	m_fAccTime += DeltaTime * factor;
 
 	if (m_vecFrm[m_iCurFrm].fDuration < m_fAccTime)
 	{
@@ -231,7 +233,6 @@ void CAnimation::Load(const wstring& name)
 
 	m_vecFrm.clear();
 	m_vecFrm.reserve(frameCount);
-
 
 	tAnimFrm frm{};
 

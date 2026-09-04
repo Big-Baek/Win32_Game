@@ -1,0 +1,55 @@
+[Animation Name]: Neo_Drink
+[Texture Name]: Neo_Drink
+[Texture Path]: D:\Git Fork\Win32_Game_Metal\Content\Texture\Neo_Drink.png
+[Frame Count]: 10
+
+[Frame Index]: 0
+[Left Top]: 0,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 1
+[Left Top]: 35,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 2
+[Left Top]: 70,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 3
+[Left Top]: 105,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 4
+[Left Top]: 140,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 5
+[Left Top]: 175,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 6
+[Left Top]: 210,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 7
+[Left Top]: 245,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 8
+[Left Top]: 280,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+
+[Frame Index]: 9
+[Left Top]: 315,0
+[Slice Size]: 28,35
+[Duration]: 0.1
+

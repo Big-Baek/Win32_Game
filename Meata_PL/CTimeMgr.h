@@ -22,10 +22,11 @@ private:
 	LARGE_INTEGER m_llCurCount;
 	LARGE_INTEGER m_llFrequency;
 
-	double m_dDT;
+	double m_dDT; //프레임간의 시간간격
 	double m_dAcc;
-	UINT m_iCallCount;
-	UINT iFPS;
+
+	UINT m_iCallCount; //초당프레임 계산후 FPS로 넘김. 이후 0으로 초기화
+	UINT iFPS; //초당 프레임횟수
 
 
 public:

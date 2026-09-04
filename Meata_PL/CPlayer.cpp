@@ -1,13 +1,9 @@
 #include "CPlayer.h"
+
 #include "CKeyMgr.h"
-#include "CTimeMgr.h"
 #include "CMissile.h"
-#include "CTexture.h"
-#include "CCore.h"
-#include "CResMgr.h"
 #include "CCollider.h"
 #include "CAnimator.h"
-#include "CAnimation.h"
 #include "CRigidBody.h"
 
 
@@ -30,8 +26,9 @@ CPlayer::CPlayer()
 
 	//m_pTex = CResMgr::GetInst()->CreateRelative(L"Neo_Cold", L"Texture\\Neo_Cold.png");
 	//GetAnimator()->CreateAnimation(L"Cold", m_pTex, Vec2(0.f, 0.f), Vec2(35.f, 35.f), 35.f, 0.1f, 16);
+	//CreateGravity();
 
-	CreateGravity();
+	m_pRigidBody->EnableGravity(true); //중력 활성화
 	GetAnimator()->Play(L"Neo_Cold", true);
 }
 
@@ -58,7 +55,7 @@ void CPlayer::update()
 
 void CPlayer::render(HDC _dc)
 {
-	CObject::render(_dc);
+	CActor::render(_dc);
 
 	//if (m_pTex && m_pTex->m_pImg)
 	//{
@@ -83,7 +80,7 @@ void CPlayer::CreateMissile(int n)
 	}
 }
 
-void CPlayer::update_state()//이후 컨트롤러로 이전
+void CPlayer::update_state()//이후 컨트롤러로 변경예정
 {
 	if (KEY_HOLD(KEY::A))
 	{
@@ -112,8 +109,6 @@ void CPlayer::update_state()//이후 컨트롤러로 이전
 			GetRigidBody()->SetVelocity(Vec2(GetRigidBody()->GetVelocity().x, -300.f));
 		}
 	}
-
-
 }
 
 void CPlayer::update_move()
@@ -176,11 +171,6 @@ void CPlayer::update_animation()
 	}
 }
 
-void CPlayer::update_Gravity()
-{
-	GetRigidBody()->AddForce(Vec2(0.f, 500.f));
-}
-
 void CPlayer::OnCollisionEnter(CCollider* _pOther)
 {
 	CObject* pOtherObj = _pOther->GetObj();
@@ -195,25 +185,3 @@ void CPlayer::OnCollisionEnter(CCollider* _pOther)
 		}
 	}
 }
-
-//void CPlayer::Player_render(HDC _dc)
-//{
-//	CObject::render(_dc);
-//
-//	if (m_pTex && m_pTex->m_pImg)
-//	{
-//		Gdiplus::Graphics g(_dc);
-//		g.DrawImage(m_pTex->m_pImg, m_vPos.x, m_vPos.y);
-//	}
-//}
-
-//void CPlayer::p_render(HDC _dc)
-//{
-//
-//		if (m_pTex && m_pTex->m_pImg)
-//		{
-//			Graphics g(_dc);
-//			g.DrawImage(m_pTex->m_pImg, m_vPos.x, m_vPos.y);
-//		}
-//	
-//}

@@ -1,7 +1,7 @@
 #pragma once
-#include "CObject.h"
+#include "CActor.h"
 
-class CGround: public CObject
+class CGround: public CActor
 {
 public:
 

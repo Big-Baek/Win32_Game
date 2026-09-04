@@ -1,5 +1,5 @@
 #pragma once
-#include "CObject.h"
+#include "CActor.h"
 #include <Windows.h>
 
 class CTexture;
@@ -21,8 +21,7 @@ enum class PLAYER_ATTACK_STATE
 	NORMAL_ATT_3,
 };
 
-
-class CPlayer :public CObject
+class CPlayer :public CActor
 {
 public:
 	CPlayer();
@@ -38,7 +37,6 @@ private:
 
 	float m_vSpeed;
 
-
 public:
 	virtual void update() override;
 	void render(HDC _dc)override;
@@ -47,7 +45,6 @@ public:
 	void update_state();
 	void update_move();
 	void update_animation();
-	void update_Gravity();
 
 	virtual void OnCollisionEnter(CCollider* _pOther) override;
 

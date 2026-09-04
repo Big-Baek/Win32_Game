@@ -7,7 +7,7 @@
 #include "CMonster.h"
 
 CIdleState::CIdleState() :
-	CState(MON_STATE::IDLE)
+	CState(STATE::IDLE)
 {
 }
 
@@ -33,7 +33,7 @@ void CIdleState::update()
 	//플레이어가 인식범위안으로 진입
 	if (fLen < pMonster->GetInfo().m_fPerceptionRange)
 	{
-		ChangeAIState(GetAI(), MON_STATE::TRACE);
+		ChangeAIState(GetAI(), STATE::TRACE);
 	}
 
 

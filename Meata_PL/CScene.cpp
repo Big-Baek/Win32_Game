@@ -56,10 +56,17 @@ void CScene::Physics_update()
 	{
 		for (size_t j = 0; j < m_arrObj[i].size(); j++)
 		{
-			m_arrObj[i][j]->Physics_update();
+			CObject* pObj = m_arrObj[i][j];
+
+			// Actor인지 확인
+			if (CActor* pActor = dynamic_cast<CActor*>(pObj))
+			{
+				pActor->Physics_update();
+			}
 		}
 	}
 }
+
 
 
 //타일을 런타임도중에 없애야한다면 별도의 작업 추가
@@ -132,7 +139,18 @@ void CScene::render_tile(HDC _dc)
 	}
 }
 
-
+vector<CActor*> CScene::GetActorOfGroup(GROUP_TYPE _eType)
+{
+	{
+		vector<CActor*> vecActor;
+		for (CObject* pObj : m_arrObj[(UINT)_eType])
+		{
+			if (CActor* pActor = dynamic_cast<CActor*>(pObj))
+				vecActor.push_back(pActor);
+		}
+		return vecActor;
+	}
+}
 
 void CScene::DeleteGroup(GROUP_TYPE _eTarget)
 {

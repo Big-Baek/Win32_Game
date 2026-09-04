@@ -1,6 +1,6 @@
 #include "Global.h"
 #include "CCollider.h"
-#include "CObject.h"
+#include "CActor.h"
 #include "CCore.h"
 #include "SelectGDI.h"
 

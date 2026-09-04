@@ -1,7 +1,7 @@
 #pragma once
 #include "CObject.h"
 
-class CUI : public CObject
+class CUI: public CObject
 {
 private:
 	vector<CUI*> m_vecChildUI; // 가지고있는 자식 UI들
@@ -27,18 +27,20 @@ public:
 	const vector<CUI*>& GetChildUI() { return m_vecChildUI; }
 
 public:
+
+
 	void update();
 	void finalupdate(); //자기 위치를 결정
 	void render(HDC _dc);
 
 	virtual void MouseOn(); //마우스 호버링
-	virtual void MouseLbtnDown();
+	virtual void MouseLbtnDown(); //마우스 눌렀을때
 	virtual void MouseLbtnUp(); //마우스 땠을때
-	virtual void MouseLbtnClicked();//
+	virtual void MouseLbtnClicked(); //마우스 클릭했을때(눌렀다 땜)
 
 	virtual CUI* O_Clone() = 0;
 private:
-	void update_child();
+	void update_child(); //자식 UI들 업데이트
 	void finalupdate_child();
 	void render_child(HDC _dc);
 	void MouseOnCheck();

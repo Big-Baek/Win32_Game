@@ -1,6 +1,7 @@
 #pragma once
-#include "CObject.h"
-class CMissile :public CObject
+#include "CActor.h"
+
+class CMissile :public CActor
 {
 private:
 	Vec2 m_fDir; //πÊ«‚

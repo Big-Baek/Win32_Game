@@ -2,7 +2,7 @@
 #include "CState.h"
 #include "AI.h"
 
-CState::CState(MON_STATE _eState) :
+CState::CState(STATE _eState) :
 	m_eState(_eState)
 {
 }

@@ -1,6 +1,6 @@
 #include "CGround.h"
 #include "CCollider.h"
-#include "CGravity.h"
+#include "CRigidBody.h"
 
 CGround::CGround()
 {
@@ -23,10 +23,10 @@ void CGround::update()
 
 void CGround::OnCollisionEnter(CCollider* _pOther)
 {
-	CObject* pOtherObj = _pOther->GetObj();
+	CActor* pOtherObj = _pOther->GetObj();
 	if (pOtherObj->GetName() == L"Player")
 	{
-		pOtherObj->GetGravity()->SetGround(true);
+		pOtherObj->GetRigidBody()->SetGround(true);
 
 		Vec2 vObjPos = _pOther->GetFinalPos();
 		Vec2 vObjScale = _pOther->GetScale();
@@ -46,10 +46,10 @@ void CGround::OnCollisionEnter(CCollider* _pOther)
 }
 void CGround::OnCollision(CCollider* _pOther)
 {
-	CObject* pOtherObj = _pOther->GetObj();
+	CActor* pOtherObj = _pOther->GetObj();
 	if (pOtherObj->GetName() == L"Player")
 	{
-		pOtherObj->GetGravity()->SetGround(true);
+		pOtherObj->GetRigidBody()->SetGround(true);
 
 		Vec2 vObjPos = _pOther->GetFinalPos();
 		Vec2 vObjScale = _pOther->GetScale();
@@ -70,9 +70,9 @@ void CGround::OnCollision(CCollider* _pOther)
 
 void CGround::OnCollisionExit(CCollider* _pOther)
 {
-	CObject* pOtherObj = _pOther->GetObj();
+	CActor* pOtherObj = _pOther->GetObj();
 	if (pOtherObj->GetName() == L"Player")
 	{
-		pOtherObj->GetGravity()->SetGround(false);
+		pOtherObj->GetRigidBody()->SetGround(false);
 	}
 }

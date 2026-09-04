@@ -6,7 +6,7 @@
 #include "CTimeMgr.h"
 
 CTraceStae::CTraceStae() :
-	CState(MON_STATE::TRACE)
+	CState(STATE::TRACE)
 {
 }
 

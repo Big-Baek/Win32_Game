@@ -9,6 +9,7 @@ class CSceneMgr
 
 private:
 	CScene* m_arrScene[(UINT)SCENE_TYPE::END]; //¸ðµç ¾À ¸ñ·Ï
+	vector<CScene*> m_vecScene;
 	CScene* m_pCurScene;
 
 public:

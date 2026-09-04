@@ -1,7 +1,7 @@
 #include "Global.h"
 #include "CRigidBody.h"
 #include "CTimeMgr.h"
-#include "CObject.h"
+#include "CActor.h"
 
 CRigidBody::CRigidBody() :
 	m_pOwner(nullptr),
@@ -22,6 +22,11 @@ void CRigidBody::update()
 
 void CRigidBody::finalupdate()
 {
+	if (m_bGravity && !m_bGround) //중력여부 확인후 가속
+	{
+		m_vAccelA.y = 800.f;
+	}
+
 	//힘의 크기
 	float fForce = m_vForce.Length();
 	if (fForce != 0.f)
@@ -77,6 +82,21 @@ void CRigidBody::finalupdate()
 
 	m_vAccel = Vec2(0.f, 0.f);
 	m_vAccelA = Vec2(0.f, 0.f);
+}
+
+void CRigidBody::EnableGravity(bool _b)
+{
+	m_vAccelA.y = _b ? 800.f : 0.f;
+	m_bGravity = _b;
+}
+
+void CRigidBody::SetGround(bool _b)
+{
+	m_bGround = _b;
+	if (m_bGround)
+	{
+		m_vVelocity.y = 0.f;
+	}
 }
 
 void CRigidBody::Move()

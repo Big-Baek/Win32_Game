@@ -1,13 +1,13 @@
 #pragma once
 
-class CObject;
+class CActor;
 
 class CCollider
 {
 private:
 	static UINT g_iNextID;
 
-	CObject* m_pOwner;//충돌체를 가진 오브젝트
+	CActor* m_pOwner;//충돌체를 가진 오브젝트
 
 	Vec2 m_vOffsetPos; //오브젝트로부터 상대위치. 일정하다
 	Vec2 m_vFinalPos; //매 프레임 계산
@@ -26,7 +26,7 @@ public:
 	Vec2 GetScale() { return m_vScale; }
 	Vec2 GetFinalPos() { return m_vFinalPos; }
 
-	CObject* GetObj() { return m_pOwner; }
+	CActor* GetObj() { return m_pOwner; }
 
 	UINT GetID() { return m_iID; }
 
@@ -52,7 +52,7 @@ public:
 
 	~CCollider();
 
-	friend class CObject;
+	friend class CActor;
 
 };
 

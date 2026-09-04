@@ -13,7 +13,7 @@ CUI::CUI(bool _bCamAff) :
 }
 
 CUI::CUI(const CUI& _origin) :
-	CObject(_origin),
+	//CObject(_origin),
 	m_pParentUI(nullptr),
 	m_bCamAffect(_origin.m_bCamAffect),
 	m_bMouseOn(false),
@@ -38,7 +38,7 @@ void CUI::update()
 
 void CUI::finalupdate()
 {
-	CObject::Physics_update();
+	//CObject::Physics_update();
 
 	//UI의 최종 좌표 계산
 

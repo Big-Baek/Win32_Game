@@ -44,7 +44,7 @@ CMonster* CMonFactory::CreaterMonster(MON_TYPE _eType, Vec2 _vPos)
 		AI* pAI = new AI;
 		pAI->AddState(new CIdleState);
 		pAI->AddState(new CTraceStae);
-		pAI->SetCurState(MON_STATE::IDLE);
+		pAI->SetCurState(STATE::IDLE);
 		//pMon->SetAI(pAI);
 	}
 	break;

@@ -6,7 +6,7 @@ class AI;
 void CreateObject(CObject* _pObj, GROUP_TYPE _eGroup);
 void DeleteObject(CObject* _pObj);
 void ChangeScene(SCENE_TYPE _eNext);
-void ChangeAIState(AI* _AI, MON_STATE _eNextStae);
+void ChangeAIState(AI* _AI, STATE _eNextStae);
 
 template <typename T>
 void Safe_Delete_Vec(vector <T>& _vec)

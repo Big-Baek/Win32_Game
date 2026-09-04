@@ -1,5 +1,5 @@
 #pragma once
-#include "CObject.h"
+#include "CActor.h"
 
 struct tMonInfo
 {
@@ -14,7 +14,7 @@ struct tMonInfo
 class CTexture;
 class AI;
 
-class CMonster : public CObject
+class CMonster : public CActor
 {
 public:
 	CMonster();

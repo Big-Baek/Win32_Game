@@ -79,7 +79,7 @@ enum class EVENT_TYPE
 	END
 };
 
-enum class MON_STATE
+enum class STATE
 {
 	IDLE,
 	PATROL,

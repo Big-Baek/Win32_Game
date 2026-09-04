@@ -25,15 +25,15 @@ void AI::AddState(CState* _pState)
 	_pState->m_pAI = this;
 }
 
-CState* AI::GetState(MON_STATE _eState)
+CState* AI::GetState(STATE _eState)
 {
-	map<MON_STATE, CState*>::iterator iter = m_mapState.find(_eState);
+	map<STATE, CState*>::iterator iter = m_mapState.find(_eState);
 	if (iter == m_mapState.end()) return nullptr;
 
 	return iter->second;
 }
 
-void AI::ChangeState(MON_STATE _eNextState)
+void AI::ChangeState(STATE _eNextState)
 {
 	CState* pNextState = GetState(_eNextState);
 
@@ -43,7 +43,7 @@ void AI::ChangeState(MON_STATE _eNextState)
 	m_pCurState->Enter();
 }
 
-void AI::SetCurState(MON_STATE _eState)
+void AI::SetCurState(STATE _eState)
 {
 	m_pCurState = GetState(_eState);
 	assert(m_pCurState);

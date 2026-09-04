@@ -31,7 +31,7 @@ void ChangeScene(SCENE_TYPE _eNext)
 	CEventMgr::GetInst()->AddEvent(evn);
 }
 
-void ChangeAIState(AI* _AI, MON_STATE _eNextStae)
+void ChangeAIState(AI* _AI, STATE _eNextStae)
 {
 	tEvent evn = {};
 	evn.eEven = EVENT_TYPE::CHANGE_AI_STATE;

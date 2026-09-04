@@ -18,8 +18,7 @@ CCore::CCore() :
 	m_hWnd(0),
 	m_ptResolution{},
 	m_hDC(0),
-	//m_hBit(0),
-	//m_memDC(0),
+	m_memDC(0),
 	m_arrBrush{},
 	m_arrPen{}
 {
@@ -51,7 +50,7 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 
 	//이중 버퍼링 용도 비트맵, DC
 	m_pMemTex = CResMgr::GetInst()->CreateBuffer(L"BackBuffer", (UINT)m_ptResolution.x, (UINT)m_ptResolution.y);
-
+	m_memDC = m_pMemTex->GetDC();
 	//화면 dc와 호환되는 비트맵 생성
 	//m_hBit = CreateCompatibleBitmap(m_hDC, m_ptResolution.x, m_ptResolution.y);
 	//메모리상에 dc를생성. 실제화면 대신 메모리에 먼저 그림을 그림
@@ -85,14 +84,14 @@ void CCore::progress()
 
 	Clear(); //그리기전에 도화지 초기화
 
-	CSceneMgr::GetInst()->render(m_pMemTex->GetDC());
-	CCamera::GetInst()->render(m_pMemTex->GetDC());
+	CSceneMgr::GetInst()->render(m_memDC);
+	CCamera::GetInst()->render(m_memDC);
 	BitBlt(
 		m_hDC,              // 목적지 DC = 실제 화면
 		0, 0,               // 목적지 좌표 (화면의 0,0)
 		m_ptResolution.x,   // 복사할 너비 = 1280
 		m_ptResolution.y,   // 복사할 높이 = 768
-		m_pMemTex->GetDC(),            // 원본 DC = 메모리 DC
+		m_memDC,            // 원본 DC = 메모리 DC
 		0, 0,               // 원본 좌표 (메모리 비트맵의 0,0)
 		SRCCOPY             // 복사 방식 = 그대로 복사
 	);

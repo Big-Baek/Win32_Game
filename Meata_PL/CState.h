@@ -8,24 +8,22 @@ class CMonster;
 class CState
 {
 public:
-	CState(MON_STATE _eState);
+	CState(STATE _eState);
 	virtual ~CState();
 
 public: //변수
 	AI* m_pAI;
-	MON_STATE m_eState;
+	STATE m_eState;
 	CMonster* m_pOwner;
 
 public: //함수
 	AI* GetAI() { return m_pAI; }
-	MON_STATE GetType() { return m_eState; }
+	STATE GetType() { return m_eState; }
 	CMonster* GetMonster();
 public:
 
 	virtual void update() = 0;
 	virtual void Enter() = 0;
 	virtual void Exit() = 0;
-
-	friend class AI;
 };
 

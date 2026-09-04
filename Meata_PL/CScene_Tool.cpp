@@ -30,7 +30,7 @@ void CScene_Tool::Enter()
 {
 	//Menu 붙이고
 	CCore::GetInst()->DockingMenu();
-	CreateTile(5, 5);
+	//CreateTile(5, 5);
 	//UI 하나 만들어보기
 	Vec2 vResolution = CCore::GetInst()->GetResolution();
 

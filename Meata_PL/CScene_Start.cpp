@@ -2,6 +2,7 @@
 #include "CScene_Start.h"
 
 #include "CObject.h"
+#include "CActor.h"
 #include "CPlayer.h"
 #include "CMonster.h"
 
@@ -22,6 +23,7 @@
 #include "CRigidBody.h"
 
 #include "CGround.h"
+#include "CActor.h"
 
 CScene_Start::CScene_Start() :
 	m_bUseForce(false),
@@ -62,7 +64,7 @@ void CScene_Start::update()
 
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
-		const vector<CObject*>& vecObj = GetGroupObject((GROUP_TYPE)i);
+		const vector<CActor*>& vecObj = GetActorOfGroup((GROUP_TYPE)i);
 
 		for (size_t j = 0; j < vecObj.size(); j++)
 		{
@@ -116,8 +118,10 @@ void CScene_Start::render(HDC _dc)
 
 void CScene_Start::Enter()
 {
+	CCore::GetInst()->DockingMenu();
+
 	//플레이어 배치
-	CObject* pObj = new CPlayer;
+	CActor* pObj = new CPlayer;
 	pObj->SetName(L"Player");
 	pObj->SetPos(Vec2(640.f, 384.f));
 	pObj->SetScale(Vec2(10.f, 10.f));

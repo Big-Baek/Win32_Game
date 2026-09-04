@@ -38,9 +38,6 @@
     <Filter Include="Engine\7. Component\Animation">
       <UniqueIdentifier>{fbc44d7c-5624-4ae7-adba-571838d46ad4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\7. Component\Physics">
-      <UniqueIdentifier>{cc8244ed-7c7e-497b-b5e2-e31a1c879e95}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\4. Object\UI">
       <UniqueIdentifier>{64563912-2f92-43a1-a415-294b9cd7c661}</UniqueIdentifier>
     </Filter>
@@ -86,6 +83,12 @@
     <Filter Include="Engine\8. Tool">
       <UniqueIdentifier>{f0e0f2fd-4551-4e79-be6b-19a62c533365}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\7. Component\Physics">
+      <UniqueIdentifier>{cc8244ed-7c7e-497b-b5e2-e31a1c879e95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\7. Component\StateMachine">
+      <UniqueIdentifier>{71ee11c0-47c3-45e3-9b8e-8da5eb6be851}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h">
@@ -130,15 +133,6 @@
     <ClInclude Include="AI.h">
       <Filter>Engine\7. Component\AI</Filter>
     </ClInclude>
-    <ClInclude Include="CTraceStae.h">
-      <Filter>Engine\7. Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="CState.h">
-      <Filter>Engine\7. Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="CIdleState.h">
-      <Filter>Engine\7. Component\AI</Filter>
-    </ClInclude>
     <ClInclude Include="CAnimation.h">
       <Filter>Engine\7. Component\Animation</Filter>
     </ClInclude>
@@ -146,9 +140,6 @@
       <Filter>Engine\7. Component\Animation</Filter>
     </ClInclude>
     <ClInclude Include="CCollider.h">
-      <Filter>Engine\7. Component\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="CGravity.h">
       <Filter>Engine\7. Component\Physics</Filter>
     </ClInclude>
     <ClInclude Include="CRigidBody.h">
@@ -190,13 +181,7 @@
     <ClInclude Include="CPlayer.h">
       <Filter>Engine\4. Object\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="CObject.h">
-      <Filter>Engine\4. Object\Actor</Filter>
-    </ClInclude>
     <ClInclude Include="CTile.h">
-      <Filter>Engine\4. Object\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="CGround.h">
       <Filter>Engine\4. Object\Base</Filter>
     </ClInclude>
     <ClInclude Include="CCollisionMgr.h">
@@ -225,6 +210,27 @@
     </ClInclude>
     <ClInclude Include="AnimTool.h">
       <Filter>Engine\8. Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="CActor.h">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="CObject.h">
+      <Filter>Engine\4. Object\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CGround.h">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="CStateMachine.h">
+      <Filter>Engine\7. Component\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="CTraceStae.h">
+      <Filter>Engine\7. Component\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>Engine\7. Component\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="CIdleState.h">
+      <Filter>Engine\7. Component\StateMachine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -261,15 +267,6 @@
     <ClCompile Include="AI.cpp">
       <Filter>Engine\7. Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="CTraceStae.cpp">
-      <Filter>Engine\7. Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="CState.cpp">
-      <Filter>Engine\7. Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="CIdleState.cpp">
-      <Filter>Engine\7. Component\AI</Filter>
-    </ClCompile>
     <ClCompile Include="CAnimation.cpp">
       <Filter>Engine\7. Component\Animation</Filter>
     </ClCompile>
@@ -277,9 +274,6 @@
       <Filter>Engine\7. Component\Animation</Filter>
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
-      <Filter>Engine\7. Component\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="CGravity.cpp">
       <Filter>Engine\7. Component\Physics</Filter>
     </ClCompile>
     <ClCompile Include="CRigidBody.cpp">
@@ -310,13 +304,7 @@
     <ClCompile Include="CPlayer.cpp">
       <Filter>Engine\4. Object\Actor</Filter>
     </ClCompile>
-    <ClCompile Include="CObject.cpp">
-      <Filter>Engine\4. Object\Actor</Filter>
-    </ClCompile>
     <ClCompile Include="CTile.cpp">
-      <Filter>Engine\4. Object\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="CGround.cpp">
       <Filter>Engine\4. Object\Base</Filter>
     </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
@@ -345,6 +333,27 @@
     </ClCompile>
     <ClCompile Include="AnimTool.cpp">
       <Filter>Engine\8. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="CActor.cpp">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="CObject.cpp">
+      <Filter>Engine\4. Object\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CGround.cpp">
+      <Filter>Engine\4. Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="CStateMachine.cpp">
+      <Filter>Engine\7. Component\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="CTraceStae.cpp">
+      <Filter>Engine\7. Component\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>Engine\7. Component\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="CIdleState.cpp">
+      <Filter>Engine\7. Component\StateMachine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

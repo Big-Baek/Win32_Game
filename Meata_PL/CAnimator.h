@@ -35,7 +35,7 @@ public:
 	CAnimator();
 	~CAnimator();
 
-	friend class CObject;
+	friend class CActor;
 	friend class AnimTool;
 };
 

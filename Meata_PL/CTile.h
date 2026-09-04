@@ -1,10 +1,9 @@
 #pragma once
 
-#include "CObject.h"
-
+#include "CActor.h"
 class CTexture;
 
-class CTile : public CObject
+class CTile : public CActor
 {
 private:
 	CTexture* m_pTileTex;

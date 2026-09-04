@@ -52,8 +52,9 @@ void CTimeMgr::update()
 
 void CTimeMgr::render()//fps 렌더링
 {
-	++m_iCallCount;
-	m_dAcc += m_dDT;// DT 누적
+	++m_iCallCount; //초당 프레임수
+	m_dAcc += m_dDT; //m_dAcc = 누적시간
+
 	if (m_dAcc >= 1.)//1초에 한번씩 호출횟수 확인
 	{
 		iFPS = m_iCallCount;

@@ -1,6 +1,8 @@
 #pragma once
 
-class CObject;
+class CActor;
+class CGravity;
+
 
 class CRigidBody
 {
@@ -9,7 +11,8 @@ public:
 	~CRigidBody();
 
 private:
-	CObject* m_pOwner;
+	CActor* m_pOwner;
+	CGravity* m_pGravity;
 
 
 	Vec2 m_vForce; //힘, 방향
@@ -20,12 +23,18 @@ private:
 	float m_fMass; //질량
 	float m_fFriction; //마찰계수
 
+	bool m_bGravity; //중력 적용 여부
+	bool m_bGround; //땅에 붙어있는지
 private:
 	void Move();
 public:
 
 	void update();
 	void finalupdate();
+
+	void EnableGravity(bool _b);
+	void SetGround(bool _b);
+
 
 	void AddForce(Vec2 _vF) { m_vForce += _vF; }
 	void AddVelocity(Vec2 _v) { m_vVelocity += _v; }
@@ -39,6 +48,6 @@ public:
 	float GetSpeed() { return m_vVelocity.Length(); }
 	Vec2 GetVelocity() { return m_vVelocity; }
 
-	friend class CObject;
+	friend class CActor;
 };
 

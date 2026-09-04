@@ -10,7 +10,7 @@ private:
 	HWND m_hWnd;// 메인 윈도우 핸들
 	POINT m_ptResolution; //윈도우 해상도
 	HDC m_hDC;
-
+	HDC m_memDC;
 	CTexture* m_pMemTex; //백버퍼 텍스쳐
 
 
