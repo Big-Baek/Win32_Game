@@ -1,7 +1,4 @@
 #include "CActor.h"
-#include "CCollider.h"
-#include "CAnimator.h"
-#include "CRigidBody.h"
 
 CActor::CActor() :
 	m_pCollider(nullptr),
@@ -40,38 +37,37 @@ CActor::~CActor()
 	if (m_pRigidBody != nullptr) delete m_pRigidBody;
 }
 
-void CActor::update()
+void CActor::BeginPlay()
 {
-}
-
-void CActor::Physics_update()
-{
-	if (m_pAnimator) m_pAnimator->finalupdate();
-
-	//if (m_pGravity) m_pGravity->finalupdate();
-
-	if (m_pRigidBody) m_pRigidBody->finalupdate();
-
-	if (m_pCollider) m_pCollider->finalupdate();
-
+	for (CComponent* pComp : m_vecComponent)
+	{
+		pComp->BeginPlay();
+	}
 }
 
 void CActor::render(HDC _dc)
 {
-	CObject::render(_dc);
+	//CObject::render(_dc);
 	ComponentRender(_dc);
+}
+
+void CActor::Component_update()
+{
+	if (m_pAnimator) m_pAnimator->update();
+
+	if (m_pRigidBody) m_pRigidBody->update();
+
+	if (m_pCollider) m_pCollider->update();
 }
 
 void CActor::ComponentRender(HDC _dc)
 {
-	this;
-	if (m_pAnimator != nullptr)
+	for (auto comp : m_vecComponent)
 	{
-		m_pAnimator->render(_dc);
-	}
-	if (m_pCollider != nullptr)
-	{
-		m_pCollider->render(_dc);
+		if (comp->m_eType == COMPONENT_TYPE::ANIMATOR || comp->m_eType == COMPONENT_TYPE::COLLIDER)
+		{
+			comp->render(_dc);
+		}
 	}
 }
 
@@ -79,16 +75,33 @@ void CActor::CreateCollider()
 {
 	m_pCollider = new CCollider;
 	m_pCollider->m_pOwner = this;
+	m_vecComponent.push_back(m_pCollider);
 }
 
 void CActor::CreateAnimator()
 {
 	m_pAnimator = new CAnimator;
 	m_pAnimator->m_pOwner = this;
+	m_vecComponent.push_back(m_pAnimator);
 }
 
 void CActor::CreateRigidBody()
 {
 	m_pRigidBody = new CRigidBody;
 	m_pRigidBody->m_pOwner = this;
+	m_vecComponent.push_back(m_pRigidBody);
+}
+
+void CActor::CreateController()
+{
+	m_pController = new CController;
+	m_pController->m_pOwner = this;
+	m_vecComponent.push_back(m_pController);
+}
+
+void CActor::CreateStateMachine()
+{
+	m_pStateMachine = new CStateMachine;
+	m_pStateMachine->m_pOwner = this;
+	m_vecComponent.push_back(m_pStateMachine);
 }

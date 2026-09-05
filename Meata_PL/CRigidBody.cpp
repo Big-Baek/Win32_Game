@@ -1,10 +1,8 @@
-#include "Global.h"
 #include "CRigidBody.h"
 #include "CTimeMgr.h"
 #include "CActor.h"
 
 CRigidBody::CRigidBody() :
-	m_pOwner(nullptr),
 	m_fMass(1.f),
 	m_vMaxVelocity(Vec2(200.f, 600.f)),
 	m_fFriction(100.f)
@@ -18,10 +16,8 @@ CRigidBody::~CRigidBody()
 
 void CRigidBody::update()
 {
-}
+	CComponent::update();
 
-void CRigidBody::finalupdate()
-{
 	if (m_bGravity && !m_bGround) //중력여부 확인후 가속
 	{
 		m_vAccelA.y = 800.f;

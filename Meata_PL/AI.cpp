@@ -4,6 +4,7 @@
 
 AI::AI()
 {
+	m_eType = COMPONENT_TYPE::AI;
 }
 
 AI::~AI()
@@ -12,6 +13,7 @@ AI::~AI()
 
 void AI::update()
 {
+	CComponent::update();
 	m_pCurState->update();
 }
 

@@ -9,7 +9,7 @@ public:
 	~CGround();
 
 private:
-	virtual void Start() override;
+	virtual void BeginPlay() override;
 	virtual void update();
 
 

@@ -1,10 +1,5 @@
 #include "CObject.h"
 #include "CTexture.h"
-#include "CKeyMgr.h"
-#include "CTimeMgr.h"
-#include "CCollider.h"
-#include "CAnimator.h"
-#include "CRigidBody.h"
 
 CObject::CObject() :
 	m_pTex(nullptr),

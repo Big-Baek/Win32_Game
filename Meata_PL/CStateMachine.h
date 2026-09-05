@@ -1,4 +1,21 @@
 #pragma once
-class CStateMachine
-{};
+#include "CComponent.h"
+
+class CStateMachine:public CComponent
+{
+public:
+	CStateMachine();
+	~CStateMachine();
+
+	virtual void BeginPlay() override;
+private:
+
+
+
+
+
+public:
+
+
+};
 

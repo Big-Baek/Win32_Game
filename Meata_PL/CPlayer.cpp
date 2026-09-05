@@ -1,11 +1,7 @@
 #include "CPlayer.h"
 
-#include "CKeyMgr.h"
 #include "CMissile.h"
-#include "CCollider.h"
-#include "CAnimator.h"
-#include "CRigidBody.h"
-
+#include "CKeyMgr.h"
 
 CPlayer::CPlayer()
 	:m_eCurState(PLAYER_STATE::IDLE),
@@ -13,20 +9,15 @@ CPlayer::CPlayer()
 	m_iPrevDir(1),
 	m_ePrevState(PLAYER_STATE::WALK)
 {
-	//texture 로딩
-
-	CreateCollider();
 	CreateRigidBody();
+	CreateController();
+	CreateCollider();
 	CreateAnimator();
 
 	GetCollider()->SetOffSetPos(Vec2(0.f, 5.f));
 	GetCollider()->SetScale(Vec2(40.f, 60.f));
 
 	GetAnimator()->LoadAnimation(L"Neo_Cold");
-
-	//m_pTex = CResMgr::GetInst()->CreateRelative(L"Neo_Cold", L"Texture\\Neo_Cold.png");
-	//GetAnimator()->CreateAnimation(L"Cold", m_pTex, Vec2(0.f, 0.f), Vec2(35.f, 35.f), 35.f, 0.1f, 16);
-	//CreateGravity();
 
 	m_pRigidBody->EnableGravity(true); //중력 활성화
 	GetAnimator()->Play(L"Neo_Cold", true);
@@ -35,9 +26,14 @@ CPlayer::CPlayer()
 CPlayer::~CPlayer()
 {}
 
+void CPlayer::BeginPlay()
+{
+	CActor::BeginPlay();
+}
+
 void CPlayer::update()
 {
-	update_move();
+	m_pController->update();
 	update_state();
 	//update_animation();
 
@@ -47,8 +43,6 @@ void CPlayer::update()
 		SetPos(Vec2(640.f, 384.f));
 	}
 
-	GetAnimator()->update();
-
 	m_ePrevState = m_eCurState;
 	m_iPrevDir = m_iDir;
 }
@@ -56,12 +50,6 @@ void CPlayer::update()
 void CPlayer::render(HDC _dc)
 {
 	CActor::render(_dc);
-
-	//if (m_pTex && m_pTex->m_pImg)
-	//{
-	//	Gdiplus::Graphics g(_dc);
-	//	g.DrawImage(m_pTex->m_pImg, m_vPos.x, m_vPos.y);
-	//}
 }
 
 void CPlayer::CreateMissile(int n)
@@ -80,7 +68,7 @@ void CPlayer::CreateMissile(int n)
 	}
 }
 
-void CPlayer::update_state()//이후 컨트롤러로 변경예정
+void CPlayer::update_state()//이후 스테이트머신으로 변경예정
 {
 	if (KEY_HOLD(KEY::A))
 	{
@@ -108,30 +96,6 @@ void CPlayer::update_state()//이후 컨트롤러로 변경예정
 		{
 			GetRigidBody()->SetVelocity(Vec2(GetRigidBody()->GetVelocity().x, -300.f));
 		}
-	}
-}
-
-void CPlayer::update_move()
-{
-	CRigidBody* pRigid = GetRigidBody();
-
-	if (KEY_HOLD(KEY::A))
-	{
-		pRigid->AddForce(Vec2(-200.f, 0.f));
-	}
-	if (KEY_HOLD(KEY::D))
-	{
-		pRigid->AddForce(Vec2(200.f, 0.f));
-	}
-	if (KEY_TAP(KEY::A))
-	{
-		//pRigid->AddForce(Vec2(200.f, 0.f));
-		pRigid->SetVelocity(Vec2(-100.f, pRigid->GetVelocity().y));
-	}
-	if (KEY_HOLD(KEY::D))
-	{
-		//pRigid->AddForce(Vec2(200.f, 0.f));
-		pRigid->SetVelocity(Vec2(100.f, pRigid->GetVelocity().y));
 	}
 }
 

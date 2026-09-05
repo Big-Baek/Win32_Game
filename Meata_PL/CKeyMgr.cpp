@@ -58,10 +58,7 @@ CKeyMgr::~CKeyMgr()
 
 void CKeyMgr::init()
 {
-
 	m_vecKey = vector<tKeyinfo>((int)KEY::LAST, tKeyinfo{ KEY_STATE::NONE, false });
-
-
 }
 
 void CKeyMgr::update()

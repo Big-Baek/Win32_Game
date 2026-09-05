@@ -1,4 +1,3 @@
-#include "Global.h"
 #include "CCollider.h"
 #include "CActor.h"
 #include "CCore.h"
@@ -12,6 +11,7 @@ CCollider::CCollider() :
 	m_iCol(0),
 	m_bActive(true)
 {
+	m_eType = COMPONENT_TYPE::COLLIDER;
 }
 
 CCollider::CCollider(const CCollider& _origin) :
@@ -28,8 +28,9 @@ CCollider::~CCollider()
 {
 }
 
-void CCollider::finalupdate()
+void CCollider::update()
 {
+	CComponent::update();
 	Vec2 vObjectPos = m_pOwner->GetPos();
 	m_vFinalPos = vObjectPos + m_vOffsetPos;
 	assert(0 <= m_iCol);

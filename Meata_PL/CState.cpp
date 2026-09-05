@@ -11,7 +11,7 @@ CState::~CState()
 {
 }
 
-CMonster* CState::GetMonster()
+CActor* CState::GetMonster()
 {
 	return 	m_pAI->GetOwner();
 }

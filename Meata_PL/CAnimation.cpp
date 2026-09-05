@@ -2,7 +2,7 @@
 #include "CAnimation.h"
 #include "CAnimator.h"
 #include "CTexture.h"
-#include "CObject.h"
+#include "CActor.h"
 #include "CTimeMgr.h"
 #include "CCamera.h"
 #include "CPathMgr.h"
@@ -70,7 +70,7 @@ void CAnimation::Tool_update()
 void CAnimation::render(HDC _dc)
 {
 
-	CObject* pObj = m_pAnimator->Getobj();
+	CActor* pObj = m_pAnimator->GetOwner();
 	Vec2 vPos = pObj->GetPos();
 	vPos += m_vOffset;
 

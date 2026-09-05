@@ -1,6 +1,5 @@
 #include "Global.h"
 #include "CCore.h"
-#include "CObject.h"
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
@@ -11,7 +10,6 @@
 #include "CUIMgr.h"
 #include "CTexture.h"
 #include "CResMgr.h"
-#include "SelectGDI.h"
 #include "resource.h"
 
 CCore::CCore() :
@@ -74,9 +72,9 @@ int CCore::init(HWND _hWnd, POINT _ptResolution)
 void CCore::progress()
 {
 	//Manager Update
-	CTimeMgr::GetInst()->update();
-	CKeyMgr::GetInst()->update();
-	CCamera::GetInst()->update();
+	CTimeMgr::GetInst()->update(); //DT 계산
+	CKeyMgr::GetInst()->update();  //키보드, 마우스 입력상태 갱신
+	CCamera::GetInst()->update();  //카메라 위치 갱신
 
 	CSceneMgr::GetInst()->update();
 	CCollisionMgr::GetInst()->update();

@@ -1,5 +1,6 @@
 #pragma once
 #include "Global.h"
+
 #include "CCamera.h"
 
 class CTexture;
@@ -19,11 +20,11 @@ protected:
 	Vec2 m_vPos;
 	Vec2 m_vScale;
 
-	CTexture* m_pTex;
+	CTexture* m_pTex;//기본 텍스쳐
 	bool m__bAlive; //살아있는지 죽어있는지 트리거
 public:
 
-	virtual void Start() {}; //Scene이 시작되기 전에 호출
+	virtual void BeginPlay() {} //Scene이 시작되기 전에 호출
 	virtual void update() = 0; //상태 업데이트
 	virtual void render(HDC _dc);
 	virtual CObject* O_Clone() = 0; //복제를 만드는 함수

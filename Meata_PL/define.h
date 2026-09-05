@@ -88,3 +88,13 @@ enum class STATE
 	RUN,
 	DEAD
 };
+
+enum class COMPONENT_TYPE
+{
+	RIGIDBODY,
+	COLLIDER,
+	ANIMATOR,
+	CONTROLLER,
+	AI,
+	END
+};

@@ -25,13 +25,13 @@ CScene::~CScene()
 	}
 }
 
-void CScene::Start()
+void CScene::BeginPlay()
 {
 	for (UINT i = 0; i < (UINT)GROUP_TYPE::END; i++)
 	{
 		for (size_t j = 0; j < m_arrObj[i].size(); j++)
 		{
-			m_arrObj[i][j]->Start();
+			m_arrObj[i][j]->BeginPlay();
 		}
 	}
 }
@@ -49,6 +49,7 @@ void CScene::update()
 		}
 	}
 }
+
 //충돌체는 플레이어 따라감
 void CScene::Physics_update()
 {
@@ -61,13 +62,11 @@ void CScene::Physics_update()
 			// Actor인지 확인
 			if (CActor* pActor = dynamic_cast<CActor*>(pObj))
 			{
-				pActor->Physics_update();
+				pActor->Component_update();
 			}
 		}
 	}
 }
-
-
 
 //타일을 런타임도중에 없애야한다면 별도의 작업 추가
 void CScene::render(HDC _dc)

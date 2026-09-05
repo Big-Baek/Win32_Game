@@ -8,12 +8,10 @@
 
 CIdleState::CIdleState() :
 	CState(STATE::IDLE)
-{
-}
+{}
 
 CIdleState::~CIdleState()
-{
-}
+{}
 
 void CIdleState::update()
 {
@@ -23,7 +21,7 @@ void CIdleState::update()
 
 
 	// 몬스터 범위안에 들어오면 추적으로 전환
-	CMonster* pMonster = GetMonster();
+	CMonster* pMonster = dynamic_cast<CMonster*>(GetMonster());
 	Vec2 vMonPos = pMonster->GetPos();
 
 	Vec2 vDiff = vPlayer - vMonPos;
@@ -35,8 +33,6 @@ void CIdleState::update()
 	{
 		ChangeAIState(GetAI(), STATE::TRACE);
 	}
-
-
 }
 
 void CIdleState::Enter()

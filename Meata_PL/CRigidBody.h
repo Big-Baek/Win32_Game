@@ -1,10 +1,11 @@
 #pragma once
+#include "CComponent.h"
 
 class CActor;
 class CGravity;
 
 
-class CRigidBody
+class CRigidBody:public CComponent
 {
 public:
 	CRigidBody();
@@ -30,7 +31,6 @@ private:
 public:
 
 	void update();
-	void finalupdate();
 
 	void EnableGravity(bool _b);
 	void SetGround(bool _b);

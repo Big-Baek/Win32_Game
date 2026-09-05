@@ -2,9 +2,11 @@
 #include "CAnimation.h"
 
 CAnimator::CAnimator() :
-	m_pOwner(nullptr),
-	m_pCurAnim(nullptr)
-{}
+	m_pCurAnim(nullptr),
+	m_bRepeat(true)
+{
+	m_eType = COMPONENT_TYPE::ANIMATOR;
+}
 
 CAnimator::~CAnimator()
 {
@@ -31,7 +33,6 @@ void CAnimator::CreateAnimation
 			MB_OK | MB_ICONWARNING
 		);
 	}
-	//	assert(pAnim == nullptr);
 
 	pAnim = new CAnimation;
 	pAnim->m_pAnimator = this;

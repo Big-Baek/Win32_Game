@@ -1,9 +1,8 @@
 #pragma once
 #include "Global.h"
-#include "CMonster.h"
 
 class AI;
-class CMonster;
+class CActor;
 
 class CState
 {
@@ -19,7 +18,7 @@ public: //변수
 public: //함수
 	AI* GetAI() { return m_pAI; }
 	STATE GetType() { return m_eState; }
-	CMonster* GetMonster();
+	CActor* GetMonster();
 public:
 
 	virtual void update() = 0;

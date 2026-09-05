@@ -31,7 +31,7 @@ public:
 
 	CActor* GetPlayer() { return m_pPlayer; }
 
-	virtual void Start();
+	virtual void BeginPlay();
 	virtual void update();
 	virtual void Physics_update();
 

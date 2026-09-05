@@ -5,7 +5,6 @@
 #include "CScene.h"
 #include "CUIMgr.h"
 #include "AI.h"
-#include "CState.h"
 
 CEventMgr::CEventMgr()
 {
@@ -53,7 +52,6 @@ void CEventMgr::Excute(const tEvent& _eve)
 		GROUP_TYPE eType = (GROUP_TYPE)_eve.wParam;
 
 		CSceneMgr::GetInst()->GetCurScene()->AddObject(pNewObj, eType);
-
 	}
 	break;
 	case EVENT_TYPE::DELETE_OBJECT:

@@ -11,7 +11,7 @@ CGround::~CGround()
 {
 }
 
-void CGround::Start()
+void CGround::BeginPlay()
 {
 	GetCollider()->SetScale(Vec2(GetScale()));
 }

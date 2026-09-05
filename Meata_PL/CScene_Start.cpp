@@ -138,7 +138,7 @@ void CScene_Start::Enter()
 	//AddObject(pMon, GROUP_TYPE::MONSTER);
 
 	//땅 배치
-	CObject* pGround = new CGround;
+	CActor* pGround = new CGround;
 	pGround->SetName(L"Ground");
 	pGround->SetPos(Vec2(640.f, 584.f));
 	pGround->SetScale(Vec2(200.f, 60.f));
@@ -180,7 +180,7 @@ void CScene_Start::Enter()
 	//카메라 효과 지정
 	//CCamera::GetInst()->FadeOut(5.f);
 	//CCamera::GetInst()->FadeIn(5.f);
-	Start();
+	BeginPlay();
 }
 
 void CScene_Start::Exit()

@@ -38,12 +38,12 @@ private:
 	float m_vSpeed;
 
 public:
+	virtual void BeginPlay() override;
 	virtual void update() override;
 	void render(HDC _dc)override;
 
 	void CreateMissile(int n);
 	void update_state();
-	void update_move();
 	void update_animation();
 
 	virtual void OnCollisionEnter(CCollider* _pOther) override;

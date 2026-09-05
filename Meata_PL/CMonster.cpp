@@ -12,9 +12,6 @@ CMonster::CMonster() :
 {
 	CreateCollider();
 	GetCollider()->SetScale(Vec2(40.f, 40.f));
-
-	//m_pTex = CResMgr::GetInst()->LoadTexture(L"Monster", L"texture\\bTile.bmp");
-	//GetCollider()->SetPen(PEN_TYPE::GREEN);
 }
 
 CMonster::~CMonster()

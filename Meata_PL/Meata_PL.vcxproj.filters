@@ -86,8 +86,14 @@
     <Filter Include="Engine\7. Component\Physics">
       <UniqueIdentifier>{cc8244ed-7c7e-497b-b5e2-e31a1c879e95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\7. Component\StateMachine">
+    <Filter Include="Engine\7. Component\FSM">
       <UniqueIdentifier>{71ee11c0-47c3-45e3-9b8e-8da5eb6be851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\3. Manager\NetworkMgr">
+      <UniqueIdentifier>{5a6300fd-f929-4cfa-ae3f-982a46193a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\7. Component\Base">
+      <UniqueIdentifier>{e83c646d-485f-4f09-931d-6652df7d7817}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -221,16 +227,22 @@
       <Filter>Engine\4. Object\Actor</Filter>
     </ClInclude>
     <ClInclude Include="CStateMachine.h">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
     </ClInclude>
     <ClInclude Include="CTraceStae.h">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
     </ClInclude>
     <ClInclude Include="CState.h">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
     </ClInclude>
     <ClInclude Include="CIdleState.h">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="CNetworkMgr.h">
+      <Filter>Engine\3. Manager\NetworkMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CComponent.h">
+      <Filter>Engine\7. Component\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -344,16 +356,22 @@
       <Filter>Engine\4. Object\Actor</Filter>
     </ClCompile>
     <ClCompile Include="CStateMachine.cpp">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
     </ClCompile>
     <ClCompile Include="CTraceStae.cpp">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
     </ClCompile>
     <ClCompile Include="CState.cpp">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
     </ClCompile>
     <ClCompile Include="CIdleState.cpp">
-      <Filter>Engine\7. Component\StateMachine</Filter>
+      <Filter>Engine\7. Component\FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="CNetworkMgr.cpp">
+      <Filter>Engine\3. Manager\NetworkMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CComponent.cpp">
+      <Filter>Engine\7. Component\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

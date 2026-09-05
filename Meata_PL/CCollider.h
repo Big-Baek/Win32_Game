@@ -1,8 +1,11 @@
 #pragma once
+#include "CComponent.h"
 
 class CActor;
 
-class CCollider
+
+
+class CCollider :public CComponent
 {
 private:
 	static UINT g_iNextID;
@@ -34,7 +37,7 @@ public:
 	void SetBrush(BRUSH_TYPE _Brush);
 
 
-	void finalupdate();
+	void update();
 	void render(HDC _dc);
 
 	void OnCollision(CCollider* _pOther);//충돌 중인 경우 호출
